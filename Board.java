@@ -1,4 +1,3 @@
-package Chess.models;
 
 public class Board {
 
