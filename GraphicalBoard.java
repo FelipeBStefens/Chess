@@ -1,3 +1,7 @@
+package Chess;
+
+import Chess.pieces.*;
+
 import java.awt.*;
 import javax.swing.*;
 
@@ -167,5 +171,8 @@ public class GraphicalBoard extends JFrame{
         graphics.drawImage(whitePawn6.getImage(), whitePawn6.getPieceWidth(), whitePawn6.getPieceHeight(), this);
         graphics.drawImage(whitePawn7.getImage(), whitePawn7.getPieceWidth(), whitePawn7.getPieceHeight(), this);
         graphics.drawImage(whitePawn8.getImage(), whitePawn8.getPieceWidth(), whitePawn8.getPieceHeight(), this);
+
+        add(new SuperButton(500,145));
     }
+
 }
