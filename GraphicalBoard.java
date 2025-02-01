@@ -79,10 +79,10 @@ public class GraphicalBoard extends JFrame{
     }
 
     // Move the piece on the board;
-    public void movePieceGUI(Pieces piece, int gridWidth, int girdHeight) throws Exception{
+    public void movePieceGUI(Pieces piece, int gridWidth, int gridHeight) throws Exception{
         
         // Set the height and the width of the piece;
-        piece.addSize(gridWidth, girdHeight);
+        piece.addSize(gridWidth, gridHeight);
         
         // Repaint teh board
         repaint();
