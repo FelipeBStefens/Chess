@@ -1,7 +1,3 @@
-package Chess;
-
-import Chess.pieces.*;
-
 import java.awt.*;
 import javax.swing.*;
 
@@ -12,6 +8,8 @@ public class GraphicalBoard extends JFrame{
     private static final int GRIDSIZE = 96;
     private static final int INITIALPIECEWIDTH = 392;
     private static final int INITIALPICEHEIGTH = 60;
+    private static final int INITIALBUTTONWIDTH = INITIALPIECEWIDTH + 1;
+    private static final int INITIALBUTTONHEIGHT = INITIALPICEHEIGTH - 3;
 
     // Instanciate the black pieces:
     // The King and Queen;
@@ -57,7 +55,91 @@ public class GraphicalBoard extends JFrame{
     public Pawn whitePawn5 = new Pawn(true, INITIALPIECEWIDTH + 4 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
     public Pawn whitePawn6 = new Pawn(true, INITIALPIECEWIDTH + 5 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
     public Pawn whitePawn7 = new Pawn(true, INITIALPIECEWIDTH + 6 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn8 = new Pawn(true, INITIALPIECEWIDTH + 7 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
+    public Pawn whitePawn8 = new Pawn(true, INITIALPIECEWIDTH + 7 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE); 
+
+    // Instanciate the buttons;
+    // Line 1;
+    public SuperButton button1x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT);
+    public SuperButton button1x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT);
+    public SuperButton button1x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT);
+    public SuperButton button1x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT);
+    public SuperButton button1x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT);
+    public SuperButton button1x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT);
+    public SuperButton button1x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT);
+    public SuperButton button1x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT);
+    // Line 2;
+    public SuperButton button2x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    // Line 3;
+    public SuperButton button3x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    // Line 4;
+    public SuperButton button4x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    public SuperButton button4x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    public SuperButton button4x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    public SuperButton button4x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    public SuperButton button4x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    public SuperButton button4x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 *GRIDSIZE);
+    public SuperButton button4x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    public SuperButton button4x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    // Line 5
+    public SuperButton button5x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    // Line 6
+    public SuperButton button6x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    // Line 7
+    public SuperButton button7x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    // Line 8;
+    public SuperButton button8x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+
+    // The matriz of all the buttons of the Window;
+    private SuperButton[][] buttonsMatrix = {{button1x1,button1x2,button1x3,button1x4,button1x5,button1x6,button1x7,button1x8},
+                                            {button2x1,button2x2,button2x3,button2x4,button2x5,button2x6,button2x7,button2x8},
+                                            {button3x1,button3x2,button3x3,button3x4,button3x5,button3x6,button3x7,button3x8},
+                                            {button4x1,button4x2,button4x3,button4x4,button4x5,button4x6,button4x7,button4x8},
+                                            {button5x1,button5x2,button5x3,button5x4,button5x5,button5x6,button5x7,button5x8},
+                                            {button6x1,button6x2,button6x3,button6x4,button6x5,button6x6,button6x7,button6x8},
+                                            {button7x1,button7x2,button7x3,button7x4,button7x5,button7x6,button7x7,button7x8},
+                                            {button8x1,button8x2,button8x3,button8x4,button8x5,button8x6,button8x7,button8x8}};
 
     // The method to create the board;
     public void openBoard() {
@@ -67,16 +149,25 @@ public class GraphicalBoard extends JFrame{
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(1920, 1080);
-
+        
         // Putting an Icon on the Window;
         ImageIcon imageIcon = new ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/ChessIcon.jpg");
         setIconImage(imageIcon.getImage());
+
+        // Adding the buttons on the Window;
+        for (SuperButton[] arrayLine : buttonsMatrix) {
+            for (SuperButton button : arrayLine) {
+                add(button);
+                setComponentZOrder(button, 1);
+            }
+        }
 
         // Putting a new background to the Window;
         ImageIcon backgroundImage = new ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Background.jpg");
         JLabel background = new JLabel("", backgroundImage, JLabel.CENTER);
         background.setBounds(0, 0, 1700, 1133);
         add(background);
+        setComponentZOrder(background, 0);
 
         // Set the Window visible;
         setVisible(true);
@@ -172,7 +263,5 @@ public class GraphicalBoard extends JFrame{
         graphics.drawImage(whitePawn7.getImage(), whitePawn7.getPieceWidth(), whitePawn7.getPieceHeight(), this);
         graphics.drawImage(whitePawn8.getImage(), whitePawn8.getPieceWidth(), whitePawn8.getPieceHeight(), this);
 
-        add(new SuperButton(500,145));
     }
-
 }
