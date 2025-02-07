@@ -1,5 +1,8 @@
+package Chess;
+
 import java.awt.*;
 import javax.swing.*;
+import Chess.pieces.*;
 
 public class GraphicalBoard extends JFrame{
     

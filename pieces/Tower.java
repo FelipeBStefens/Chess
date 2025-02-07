@@ -1,7 +1,9 @@
-import java.awt.Image;
-import javax.swing.ImageIcon;
+package Chess.pieces;
 
-public class Tower extends Pieces{
+import javax.swing.*;
+import java.awt.*;
+
+public class Tower extends Pieces {
 
     // The properties if it's white or black;
     private boolean isWhite;
@@ -22,8 +24,8 @@ public class Tower extends Pieces{
 
         // Verifying if it's white or black;
         if (isWhite) {
-            return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/WhitePieces/WhiteTower.png").getImage();
+            return new
+                    ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/WhitePieces/WhiteTower.png").getImage();
         }
         else {
             return new 

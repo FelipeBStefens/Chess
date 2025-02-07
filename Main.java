@@ -1,3 +1,6 @@
+package Chess;
+
+import Chess.GraphicalBoard;
 
 public class Main {
 

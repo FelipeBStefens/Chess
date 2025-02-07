@@ -1,7 +1,9 @@
+package Chess.pieces;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Pawn extends Pieces{
+public class Pawn extends Pieces {
 
     // The properties if it's white or black;
     private boolean isWhite;
