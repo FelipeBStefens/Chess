@@ -1,12 +1,10 @@
-package Chess.pieces;
-
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class King extends Pieces {
 
     // The properties if it's white or black;
-    private boolean isWhite;
+    public boolean isWhite;
     
     // The constructor of the class;
     public King(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {

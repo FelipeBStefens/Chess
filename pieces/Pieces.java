@@ -1,17 +1,15 @@
-package Chess.pieces;
-
 import java.awt.Image;
 
 public abstract class Pieces {
     
     // Private properties to math;
-    private static final int INITIALPIECEWIDTH = 392;
-    private static final int INITIALPICEHEIGTH = 60;
-    private static final int GRIDSIZE = 96;
+    private static final int INITIAL_PIECE_WIDTH = 392;
+    private static final int INITIAL_PIECE_HEIGHT = 60;
+    private static final int GRID_SIZE = 96;
     
     // Properties of the positions;
-    private int initialWidthPosition;
-    private int initialHeightPosition;
+    public int initialWidthPosition;
+    public int initialHeightPosition;
 
     // The constructor of the class;
     public Pieces(int initialWidthPosition, int initialHeightPosition) {
@@ -40,31 +38,31 @@ public abstract class Pieces {
 
         // Throws the Exceptions if the width value makes the piece out of the board;
         if (width < 0) {
-            if (initialWidthPosition + (width * GRIDSIZE) < INITIALPIECEWIDTH) {
+            if (initialWidthPosition + (width * GRID_SIZE) < INITIAL_PIECE_WIDTH) {
                 throw new Exception("Invalid width value");
             }
         }
         else {
-            if (initialWidthPosition + (width * GRIDSIZE) > INITIALPIECEWIDTH + 7 * GRIDSIZE) {
+            if (initialWidthPosition + (width * GRID_SIZE) > INITIAL_PIECE_WIDTH + 7 * GRID_SIZE) {
                 throw new Exception("Invalid width value");
             }
         }
         
         // Throws the Exceptions if the height value makes the piece out of the board;
         if (height < 0) {
-            if (initialHeightPosition + (height * GRIDSIZE) < INITIALPICEHEIGTH) {
+            if (initialHeightPosition + (height * GRID_SIZE) < INITIAL_PIECE_HEIGHT) {
                 throw new Exception("Invalid height value");
             }
         }
         else {
-            if (initialHeightPosition + (height * GRIDSIZE) > INITIALPICEHEIGTH + 7 * GRIDSIZE) {
+            if (initialHeightPosition + (height * GRID_SIZE) > INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE) {
                 throw new Exception("Invalid height value");
             }
         }
         
         // Setting the other postions;
-        initialWidthPosition += width * GRIDSIZE;
-        initialHeightPosition += height * GRIDSIZE;
+        initialWidthPosition += width * GRID_SIZE;
+        initialHeightPosition += height * GRID_SIZE;
     }
 
     // The abstract method to get the image; 

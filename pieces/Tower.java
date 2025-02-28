@@ -1,12 +1,10 @@
-package Chess.pieces;
-
 import javax.swing.*;
 import java.awt.*;
 
 public class Tower extends Pieces {
 
     // The properties if it's white or black;
-    private boolean isWhite;
+    public boolean isWhite;
     
     // The constructor of the class;
     public Tower(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {

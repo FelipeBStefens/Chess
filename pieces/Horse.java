@@ -1,14 +1,10 @@
-package Chess.pieces;
-
-import Chess.pieces.Pieces;
-
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Horse extends Pieces {
     
     // The properties if it's white or black;
-    private boolean isWhite;
+    public boolean isWhite;
     
     // The constructor of the class;
     public Horse(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {

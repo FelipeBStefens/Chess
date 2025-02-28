@@ -1,138 +1,135 @@
-package Chess;
-
 import java.awt.*;
 import javax.swing.*;
-import Chess.pieces.*;
 
 public class GraphicalBoard extends JFrame{
     
     // Constants to use in the program, that are numbers in pixels;
-    private static final int SIZEBOARD = 768;
-    private static final int GRIDSIZE = 96;
-    private static final int INITIALPIECEWIDTH = 392;
-    private static final int INITIALPICEHEIGTH = 60;
-    private static final int INITIALBUTTONWIDTH = INITIALPIECEWIDTH + 1;
-    private static final int INITIALBUTTONHEIGHT = INITIALPICEHEIGTH - 3;
+    private static final int SIZE_BOARD = 768;
+    private static final int GRID_SIZE = 96;
+    private static final int INITIAL_PIECE_WIDTH = 392;
+    private static final int INITIAL_PIECE_HEIGHT = 60;
+    private static final int INITIAL_BUTTON_WIDTH = INITIAL_PIECE_WIDTH + 1;
+    private static final int INITIAL_BUTTON_HEIGHT = INITIAL_PIECE_HEIGHT - 3;
 
     // Instanciate the black pieces:
     // The King and Queen;
-    public King blackKing = new King(false, INITIALPIECEWIDTH + 4 * GRIDSIZE, INITIALPICEHEIGTH);
-    public Queen blackQueen = new Queen(false, INITIALPIECEWIDTH + 3 * GRIDSIZE, INITIALPICEHEIGTH);
+    public static King blackKing = new King(false, INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public static Queen blackQueen = new Queen(false, INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
     // The Bishops;
-    public Bishop blackBishop1 = new Bishop(false, INITIALPIECEWIDTH + 2 * GRIDSIZE, INITIALPICEHEIGTH);
-    public Bishop blackBishop2 = new Bishop(false, INITIALPIECEWIDTH + 5 * GRIDSIZE, INITIALPICEHEIGTH);
+    public static Bishop blackBishop1 = new Bishop(false, INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public static Bishop blackBishop2 = new Bishop(false, INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
     // The Horses;
-    public Horse blackHorse1 = new Horse(false, INITIALPIECEWIDTH + GRIDSIZE, INITIALPICEHEIGTH);
-    public Horse blackHorse2 = new Horse(false, INITIALPIECEWIDTH + 6 * GRIDSIZE, INITIALPICEHEIGTH);
+    public static Horse blackHorse1 = new Horse(false, INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public static Horse blackHorse2 = new Horse(false, INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
     // The Towers;
-    public Tower blackTower1 = new Tower(false, INITIALPIECEWIDTH, INITIALPICEHEIGTH);
-    public Tower blackTower2 = new Tower(false, INITIALPIECEWIDTH + 7 * GRIDSIZE, INITIALPICEHEIGTH);
+    public static Tower blackTower1 = new Tower(false, INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT);
+    public static Tower blackTower2 = new Tower(false, INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
     // The Pawns:
-    public Pawn blackPawn1 = new Pawn(false, INITIALPIECEWIDTH, INITIALPICEHEIGTH + GRIDSIZE);
-    public Pawn blackPawn2 = new Pawn(false, INITIALPIECEWIDTH + GRIDSIZE, INITIALPICEHEIGTH + GRIDSIZE);
-    public Pawn blackPawn3 = new Pawn(false, INITIALPIECEWIDTH + 2 * GRIDSIZE, INITIALPICEHEIGTH + GRIDSIZE);
-    public Pawn blackPawn4 = new Pawn(false, INITIALPIECEWIDTH + 3 * GRIDSIZE, INITIALPICEHEIGTH + GRIDSIZE);
-    public Pawn blackPawn5 = new Pawn(false, INITIALPIECEWIDTH + 4 * GRIDSIZE, INITIALPICEHEIGTH + GRIDSIZE);
-    public Pawn blackPawn6 = new Pawn(false, INITIALPIECEWIDTH + 5 * GRIDSIZE, INITIALPICEHEIGTH + GRIDSIZE);
-    public Pawn blackPawn7 = new Pawn(false, INITIALPIECEWIDTH + 6 * GRIDSIZE, INITIALPICEHEIGTH + GRIDSIZE);
-    public Pawn blackPawn8 = new Pawn(false, INITIALPIECEWIDTH + 7 * GRIDSIZE, INITIALPICEHEIGTH + GRIDSIZE);
+    public static Pawn blackPawn1 = new Pawn(false, INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public static Pawn blackPawn2 = new Pawn(false, INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public static Pawn blackPawn3 = new Pawn(false, INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public static Pawn blackPawn4 = new Pawn(false, INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public static Pawn blackPawn5 = new Pawn(false, INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public static Pawn blackPawn6 = new Pawn(false, INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public static Pawn blackPawn7 = new Pawn(false, INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public static Pawn blackPawn8 = new Pawn(false, INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
 
     // Instanciate the white pieces:
     // The King and Queen;
-    public King whiteKing = new King(true, INITIALPIECEWIDTH + 4 * GRIDSIZE, INITIALPICEHEIGTH + 7 * GRIDSIZE);
-    public Queen whiteQueen = new Queen(true, INITIALPIECEWIDTH + 3 * GRIDSIZE, INITIALPICEHEIGTH + 7 * GRIDSIZE);
+    public static King whiteKing = new King(true, INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public static Queen whiteQueen = new Queen(true, INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
     // The Bishops;
-    public Bishop whiteBishop1 = new Bishop(true, INITIALPIECEWIDTH + 2 * GRIDSIZE, INITIALPICEHEIGTH + 7 * GRIDSIZE);
-    public Bishop whiteBishop2 = new Bishop(true, INITIALPIECEWIDTH + 5 * GRIDSIZE, INITIALPICEHEIGTH + 7 * GRIDSIZE);
+    public static Bishop whiteBishop1 = new Bishop(true, INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public static Bishop whiteBishop2 = new Bishop(true, INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
     // The Horses;
-    public Horse whiteHorse1 = new Horse(true, INITIALPIECEWIDTH + GRIDSIZE, INITIALPICEHEIGTH + 7 * GRIDSIZE);
-    public Horse whiteHorse2 = new Horse(true, INITIALPIECEWIDTH + 6 * GRIDSIZE, INITIALPICEHEIGTH + 7 * GRIDSIZE);
+    public static Horse whiteHorse1 = new Horse(true, INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public static Horse whiteHorse2 = new Horse(true, INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
     // The Towers;
-    public Tower whiteTower1 = new Tower(true, INITIALPIECEWIDTH, INITIALPICEHEIGTH + 7 * GRIDSIZE);
-    public Tower whiteTower2 = new Tower(true, INITIALPIECEWIDTH + 7 * GRIDSIZE, INITIALPICEHEIGTH + 7 * GRIDSIZE);
+    public static Tower whiteTower1 = new Tower(true, INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public static Tower whiteTower2 = new Tower(true, INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
     // The Pawns;
-    public Pawn whitePawn1 = new Pawn(true, INITIALPIECEWIDTH, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn2 = new Pawn(true, INITIALPIECEWIDTH + GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn3 = new Pawn(true, INITIALPIECEWIDTH + 2 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn4 = new Pawn(true, INITIALPIECEWIDTH + 3 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn5 = new Pawn(true, INITIALPIECEWIDTH + 4 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn6 = new Pawn(true, INITIALPIECEWIDTH + 5 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn7 = new Pawn(true, INITIALPIECEWIDTH + 6 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE);
-    public Pawn whitePawn8 = new Pawn(true, INITIALPIECEWIDTH + 7 * GRIDSIZE, INITIALPICEHEIGTH + 6 * GRIDSIZE); 
+    public static Pawn whitePawn1 = new Pawn(true, INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public static Pawn whitePawn2 = new Pawn(true, INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public static Pawn whitePawn3 = new Pawn(true, INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public static Pawn whitePawn4 = new Pawn(true, INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public static Pawn whitePawn5 = new Pawn(true, INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public static Pawn whitePawn6 = new Pawn(true, INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public static Pawn whitePawn7 = new Pawn(true, INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public static Pawn whitePawn8 = new Pawn(true, INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE); 
 
     // Instanciate the buttons;
     // Line 1;
-    public SuperButton button1x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT);
-    public SuperButton button1x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT);
-    public SuperButton button1x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT);
-    public SuperButton button1x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT);
-    public SuperButton button1x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT);
-    public SuperButton button1x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT);
-    public SuperButton button1x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT);
-    public SuperButton button1x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT);
+    public SuperButton button1x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
     // Line 2;
-    public SuperButton button2x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + GRIDSIZE);
-    public SuperButton button2x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
-    public SuperButton button2x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
-    public SuperButton button2x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
-    public SuperButton button2x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
-    public SuperButton button2x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
-    public SuperButton button2x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
-    public SuperButton button2x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + GRIDSIZE);
+    public SuperButton button2x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
     // Line 3;
-    public SuperButton button3x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
-    public SuperButton button3x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
-    public SuperButton button3x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
-    public SuperButton button3x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
-    public SuperButton button3x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
-    public SuperButton button3x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
-    public SuperButton button3x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
-    public SuperButton button3x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 2 * GRIDSIZE);
+    public SuperButton button3x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
     // Line 4;
-    public SuperButton button4x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
-    public SuperButton button4x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
-    public SuperButton button4x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
-    public SuperButton button4x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
-    public SuperButton button4x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
-    public SuperButton button4x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 *GRIDSIZE);
-    public SuperButton button4x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
-    public SuperButton button4x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 3 * GRIDSIZE);
+    public SuperButton button4x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 *GRID_SIZE);
+    public SuperButton button4x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
     // Line 5
-    public SuperButton button5x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
-    public SuperButton button5x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
-    public SuperButton button5x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
-    public SuperButton button5x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
-    public SuperButton button5x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
-    public SuperButton button5x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
-    public SuperButton button5x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
-    public SuperButton button5x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 4 * GRIDSIZE);
+    public SuperButton button5x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
     // Line 6
-    public SuperButton button6x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
-    public SuperButton button6x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
-    public SuperButton button6x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
-    public SuperButton button6x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
-    public SuperButton button6x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
-    public SuperButton button6x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
-    public SuperButton button6x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
-    public SuperButton button6x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 5 * GRIDSIZE);
+    public SuperButton button6x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
     // Line 7
-    public SuperButton button7x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
-    public SuperButton button7x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
-    public SuperButton button7x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
-    public SuperButton button7x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
-    public SuperButton button7x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
-    public SuperButton button7x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
-    public SuperButton button7x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
-    public SuperButton button7x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 6 * GRIDSIZE);
+    public SuperButton button7x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
     // Line 8;
-    public SuperButton button8x1 = new SuperButton(INITIALBUTTONWIDTH, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
-    public SuperButton button8x2 = new SuperButton(INITIALBUTTONWIDTH + GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
-    public SuperButton button8x3 = new SuperButton(INITIALBUTTONWIDTH + 2 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
-    public SuperButton button8x4 = new SuperButton(INITIALBUTTONWIDTH + 3 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
-    public SuperButton button8x5 = new SuperButton(INITIALBUTTONWIDTH + 4 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
-    public SuperButton button8x6 = new SuperButton(INITIALBUTTONWIDTH + 5 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
-    public SuperButton button8x7 = new SuperButton(INITIALBUTTONWIDTH + 6 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
-    public SuperButton button8x8 = new SuperButton(INITIALBUTTONWIDTH + 7 * GRIDSIZE, INITIALBUTTONHEIGHT + 7 * GRIDSIZE);
+    public SuperButton button8x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
 
     // The matriz of all the buttons of the Window;
     private SuperButton[][] buttonsMatrix = {{button1x1,button1x2,button1x3,button1x4,button1x5,button1x6,button1x7,button1x8},
@@ -164,6 +161,7 @@ public class GraphicalBoard extends JFrame{
                 setComponentZOrder(button, 1);
             }
         }
+        SuperButton.setButtonsMatrix(buttonsMatrix);
 
         // Putting a new background to the Window;
         ImageIcon backgroundImage = new ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Background.jpg");
@@ -193,29 +191,29 @@ public class GraphicalBoard extends JFrame{
             
         // Put the backgroud of the board in black;
         graphics.setColor(Color.BLACK);
-        graphics.fillRect((getSize().width - SIZEBOARD)/2, (getSize().height - SIZEBOARD)/2, SIZEBOARD, SIZEBOARD);
+        graphics.fillRect((getSize().width - SIZE_BOARD)/2, (getSize().height - SIZE_BOARD)/2, SIZE_BOARD, SIZE_BOARD);
       
         // Select parts of the board and painting with white;
         graphics.setColor(Color.WHITE); 
-        int numCols = getSize().width / GRIDSIZE;
+        int numCols = getSize().width / GRID_SIZE;
         for (int row = 0; row < 8; row++) {
                 
             if (row % 2 == 0) {
                 for (int col = 0; col < numCols/2; col  += 2) {
                     
-                    int x = (getSize().width - SIZEBOARD) / 2 + col * GRIDSIZE;
-                    int y = (getSize().height - SIZEBOARD) / 2 + row * GRIDSIZE;
+                    int x = (getSize().width - SIZE_BOARD) / 2 + col * GRID_SIZE;
+                    int y = (getSize().height - SIZE_BOARD) / 2 + row * GRID_SIZE;
         
-                    graphics.fillRect(x, y, GRIDSIZE, GRIDSIZE);
+                    graphics.fillRect(x, y, GRID_SIZE, GRID_SIZE);
                 }
             }
             else {
                 for (int col = 1; col < numCols/2; col += 2) {
                     
-                    int x = (getSize().width - SIZEBOARD) / 2 + col * GRIDSIZE;
-                    int y = (getSize().height - SIZEBOARD) / 2 + row * GRIDSIZE;
+                    int x = (getSize().width - SIZE_BOARD) / 2 + col * GRID_SIZE;
+                    int y = (getSize().height - SIZE_BOARD) / 2 + row * GRID_SIZE;
         
-                    graphics.fillRect(x, y, GRIDSIZE, GRIDSIZE);
+                    graphics.fillRect(x, y, GRID_SIZE, GRID_SIZE);
                 }
             }
         }
