@@ -3,9 +3,6 @@ import javax.swing.ImageIcon;
 
 public class King extends Pieces {
 
-    // The properties if it's white or black;
-    public boolean isWhite;
-    
     // The constructor of the class;
     public King(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {
 

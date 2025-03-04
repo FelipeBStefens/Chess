@@ -3,9 +3,6 @@ import javax.swing.ImageIcon;
 
 public class Queen extends Pieces {
 
-    // The properties if it's white or black;
-    public boolean isWhite;
-    
     // The constructor of the class;
     public Queen(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {
 

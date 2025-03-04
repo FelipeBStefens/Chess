@@ -1,4 +1,7 @@
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import javax.swing.*;
 
 public class GraphicalBoard extends JFrame{
@@ -34,6 +37,11 @@ public class GraphicalBoard extends JFrame{
     public static Pawn blackPawn7 = new Pawn(false, INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
     public static Pawn blackPawn8 = new Pawn(false, INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
 
+    // The array of the black pieces;
+    private Pieces[] blackPiecesArray = {blackKing, blackQueen, blackBishop1, blackBishop2, blackHorse1, blackHorse2, 
+                                        blackTower1, blackTower2, blackPawn1, blackPawn2, blackPawn3, blackPawn4,
+                                        blackPawn5, blackPawn6, blackPawn7, blackPawn8};
+
     // Instanciate the white pieces:
     // The King and Queen;
     public static King whiteKing = new King(true, INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
@@ -56,6 +64,11 @@ public class GraphicalBoard extends JFrame{
     public static Pawn whitePawn6 = new Pawn(true, INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
     public static Pawn whitePawn7 = new Pawn(true, INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
     public static Pawn whitePawn8 = new Pawn(true, INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE); 
+
+    // The array of the white pieces;
+    private Pieces[] whitePiecesArray = {whiteKing, whiteQueen, whiteBishop1, whiteBishop2, whiteHorse1, whiteHorse2, 
+                                        whiteTower1, whiteTower2, whitePawn1, whitePawn2, whitePawn3, whitePawn4,
+                                        whitePawn5, whitePawn6, whitePawn7, whitePawn8};
 
     // Instanciate the buttons;
     // Line 1;
@@ -161,7 +174,11 @@ public class GraphicalBoard extends JFrame{
                 setComponentZOrder(button, 1);
             }
         }
-        SuperButton.setButtonsMatrix(buttonsMatrix);
+
+        // Transforming the arrays in lists and setting with the buttons matrix;
+        ArrayList<Pieces> blackPieces = new ArrayList<Pieces>(Arrays.asList(blackPiecesArray));
+        ArrayList<Pieces> whitePieces = new ArrayList<Pieces>(Arrays.asList(whitePiecesArray));
+        SuperButton.setButtonsPiecesMatrix(buttonsMatrix, whitePieces, blackPieces);
 
         // Putting a new background to the Window;
         ImageIcon backgroundImage = new ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Background.jpg");
@@ -175,13 +192,13 @@ public class GraphicalBoard extends JFrame{
     }
 
     // Move the piece on the board;
-    public void movePieceGUI(Pieces piece, int gridWidth, int gridHeight) throws Exception{
+    public static void movePieceGUI(GraphicalBoard board, Pieces piece, int gridWidth, int gridHeight) throws Exception{
         
         // Set the height and the width of the piece;
         piece.addSize(gridWidth, gridHeight);
         
-        // Repaint teh board
-        repaint();
+        // Repaint the board;
+        board.repaint();
     }
 
     // Painting the board using Graphics;
@@ -218,51 +235,19 @@ public class GraphicalBoard extends JFrame{
             }
         }
 
-        // Drawing the black pieces:
-        // The King and Queen;
-        graphics.drawImage(blackKing.getImage(), blackKing.getPieceWidth(), blackKing.getPieceHeight(), this);
-        graphics.drawImage(blackQueen.getImage(), blackQueen.getPieceWidth(), blackQueen.getPieceHeight(), this);
-        // The Bishops;
-        graphics.drawImage(blackBishop1.getImage(), blackBishop1.getPieceWidth(), blackBishop1.getPieceHeight(), this);
-        graphics.drawImage(blackBishop2.getImage(), blackBishop2.getPieceWidth(), blackBishop2.getPieceHeight(), this);
-        // The Horses;
-        graphics.drawImage(blackHorse1.getImage(), blackHorse1.getPieceWidth(), blackHorse1.getPieceHeight(), this);
-        graphics.drawImage(blackHorse2.getImage(), blackHorse2.getPieceWidth(), blackHorse2.getPieceHeight(), this);
-        // The Towers;
-        graphics.drawImage(blackTower1.getImage(), blackTower1.getPieceWidth(), blackTower1.getPieceHeight(), this);
-        graphics.drawImage(blackTower2.getImage(), blackTower2.getPieceWidth(), blackTower2.getPieceHeight(), this);
-        // The Pawns;
-        graphics.drawImage(blackPawn1.getImage(), blackPawn1.getPieceWidth(), blackPawn1.getPieceHeight(), this);
-        graphics.drawImage(blackPawn2.getImage(), blackPawn2.getPieceWidth(), blackPawn2.getPieceHeight(), this);
-        graphics.drawImage(blackPawn3.getImage(), blackPawn3.getPieceWidth(), blackPawn3.getPieceHeight(), this);
-        graphics.drawImage(blackPawn4.getImage(), blackPawn4.getPieceWidth(), blackPawn4.getPieceHeight(), this);
-        graphics.drawImage(blackPawn5.getImage(), blackPawn5.getPieceWidth(), blackPawn5.getPieceHeight(), this);
-        graphics.drawImage(blackPawn6.getImage(), blackPawn6.getPieceWidth(), blackPawn6.getPieceHeight(), this);
-        graphics.drawImage(blackPawn7.getImage(), blackPawn7.getPieceWidth(), blackPawn7.getPieceHeight(), this);
-        graphics.drawImage(blackPawn8.getImage(), blackPawn8.getPieceWidth(), blackPawn8.getPieceHeight(), this);
-        
-        // Drawing the white pieces:
-        // The King and Queen;
-        graphics.drawImage(whiteKing.getImage(), whiteKing.getPieceWidth(), whiteKing.getPieceHeight(), this);
-        graphics.drawImage(whiteQueen.getImage(), whiteQueen.getPieceWidth(), whiteQueen.getPieceHeight(), this);
-        // The Bishops;
-        graphics.drawImage(whiteBishop1.getImage(), whiteBishop1.getPieceWidth(), whiteBishop1.getPieceHeight(), this);
-        graphics.drawImage(whiteBishop2.getImage(), whiteBishop2.getPieceWidth(), whiteBishop2.getPieceHeight(), this);
-        // The Horses;
-        graphics.drawImage(whiteHorse1.getImage(), whiteHorse1.getPieceWidth(), whiteHorse1.getPieceHeight(), this);
-        graphics.drawImage(whiteHorse2.getImage(), whiteHorse2.getPieceWidth(), whiteHorse2.getPieceHeight(), this);
-        // The Towers;
-        graphics.drawImage(whiteTower1.getImage(), whiteTower1.getPieceWidth(), whiteTower1.getPieceHeight(), this);
-        graphics.drawImage(whiteTower2.getImage(), whiteTower2.getPieceWidth(), whiteTower2.getPieceHeight(), this);
-        // The Pawns;
-        graphics.drawImage(whitePawn1.getImage(), whitePawn1.getPieceWidth(), whitePawn1.getPieceHeight(), this);
-        graphics.drawImage(whitePawn2.getImage(), whitePawn2.getPieceWidth(), whitePawn2.getPieceHeight(), this);
-        graphics.drawImage(whitePawn3.getImage(), whitePawn3.getPieceWidth(), whitePawn3.getPieceHeight(), this);
-        graphics.drawImage(whitePawn4.getImage(), whitePawn4.getPieceWidth(), whitePawn4.getPieceHeight(), this);
-        graphics.drawImage(whitePawn5.getImage(), whitePawn5.getPieceWidth(), whitePawn5.getPieceHeight(), this);
-        graphics.drawImage(whitePawn6.getImage(), whitePawn6.getPieceWidth(), whitePawn6.getPieceHeight(), this);
-        graphics.drawImage(whitePawn7.getImage(), whitePawn7.getPieceWidth(), whitePawn7.getPieceHeight(), this);
-        graphics.drawImage(whitePawn8.getImage(), whitePawn8.getPieceWidth(), whitePawn8.getPieceHeight(), this);
+        // Drawing all the black pieces that are alive in the game;
+        for (int i = 0; i < SuperButton.blackPieces.size(); i++) {
 
+            graphics.drawImage(SuperButton.blackPieces.get(i).getImage(), SuperButton.blackPieces.get(i).getPieceWidth(), 
+            SuperButton.blackPieces.get(i).getPieceHeight(), this);  
+        }
+
+        // Drawing all the white pieces that are alive in the game;
+        for (int i = 0; i < SuperButton.whitePieces.size(); i++) {
+
+            graphics.drawImage(SuperButton.whitePieces.get(i).getImage(), SuperButton.whitePieces.get(i).getPieceWidth(), 
+            SuperButton.whitePieces.get(i).getPieceHeight(), this); 
+        }
     }
+    
 }

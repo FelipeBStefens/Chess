@@ -3,9 +3,6 @@ import java.awt.*;
 
 public class Tower extends Pieces {
 
-    // The properties if it's white or black;
-    public boolean isWhite;
-    
     // The constructor of the class;
     public Tower(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {
 

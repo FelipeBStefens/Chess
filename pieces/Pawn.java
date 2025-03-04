@@ -2,9 +2,6 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 
 public class Pawn extends Pieces {
-
-    // The properties if it's white or black;
-    public boolean isWhite;
     
     // The constructor of the class;
     public Pawn(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {

@@ -7,9 +7,10 @@ public abstract class Pieces {
     private static final int INITIAL_PIECE_HEIGHT = 60;
     private static final int GRID_SIZE = 96;
     
-    // Properties of the positions;
+    // Properties of the positions and color;
     public int initialWidthPosition;
     public int initialHeightPosition;
+    public boolean isWhite;
 
     // The constructor of the class;
     public Pieces(int initialWidthPosition, int initialHeightPosition) {
