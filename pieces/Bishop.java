@@ -1,3 +1,5 @@
+package Chess.pieces;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -20,11 +22,11 @@ public class Bishop extends Pieces{
         // Verifying if it's white or black;
         if (isWhite) {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/WhitePieces/WhiteBishop.png").getImage();
+                ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/WhitePieces/WhiteBishop.png").getImage();
         }
         else {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/BlackPieces/BlackBishop.png").getImage();
+                ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/BlackPieces/BlackBishop.png").getImage();
         }
     }
 }

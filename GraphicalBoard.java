@@ -1,3 +1,7 @@
+package Chess;
+
+import Chess.pieces.*;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -38,7 +42,7 @@ public class GraphicalBoard extends JFrame{
     public static Pawn blackPawn8 = new Pawn(false, INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
 
     // The array of the black pieces;
-    private Pieces[] blackPiecesArray = {blackKing, blackQueen, blackBishop1, blackBishop2, blackHorse1, blackHorse2, 
+    private Pieces[] blackPiecesArray = {blackKing, blackQueen, blackBishop1, blackBishop2, blackHorse1, blackHorse2,
                                         blackTower1, blackTower2, blackPawn1, blackPawn2, blackPawn3, blackPawn4,
                                         blackPawn5, blackPawn6, blackPawn7, blackPawn8};
 
@@ -72,6 +76,7 @@ public class GraphicalBoard extends JFrame{
 
     // Instanciate the buttons;
     // Line 1;
+
     public SuperButton button1x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT);
     public SuperButton button1x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT);
     public SuperButton button1x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
@@ -155,7 +160,7 @@ public class GraphicalBoard extends JFrame{
                                             {button8x1,button8x2,button8x3,button8x4,button8x5,button8x6,button8x7,button8x8}};
 
     // The method to create the board;
-    public void openBoard() {
+    public void openBoard() throws Exception{
 
         // Creating a new Window;
         setLayout(null);
@@ -164,7 +169,7 @@ public class GraphicalBoard extends JFrame{
         setSize(1920, 1080);
         
         // Putting an Icon on the Window;
-        ImageIcon imageIcon = new ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/ChessIcon.jpg");
+        ImageIcon imageIcon = new ImageIcon(System.getProperty("user.dir")+"/Images/ChessIcon.jpg");
         setIconImage(imageIcon.getImage());
 
         // Adding the buttons on the Window;
@@ -181,7 +186,7 @@ public class GraphicalBoard extends JFrame{
         SuperButton.setButtonsPiecesMatrix(buttonsMatrix, whitePieces, blackPieces);
 
         // Putting a new background to the Window;
-        ImageIcon backgroundImage = new ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Background.jpg");
+        ImageIcon backgroundImage = new ImageIcon(System.getProperty("user.dir") + "/Images/Background.jpg");
         JLabel background = new JLabel("", backgroundImage, JLabel.CENTER);
         background.setBounds(0, 0, 1700, 1133);
         add(background);

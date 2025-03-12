@@ -1,9 +1,19 @@
+package Chess;
+
+import Chess.pieces.*;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import javax.sound.sampled.UnsupportedAudioFileException;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 
 public class SuperButton extends JButton implements ActionListener{
@@ -31,6 +41,9 @@ public class SuperButton extends JButton implements ActionListener{
     private static SuperButton lastButton;
     private static Pieces lastPiece;
     private static boolean isWhiteTurn = true;
+
+    File movePieceSound = new File(System.getProperty("user.dir") + "\\Sounds\\ChessPieceSound.wav");
+    Clip clipSound;
 
     // Selecting all the buttons in a matrix, and all the pieces in two arrays separaated in black and white;
     public static void setButtonsPiecesMatrix(SuperButton[][] buttonsMatrix, ArrayList<Pieces> whitePieces, ArrayList<Pieces> blackPieces) {
@@ -74,6 +87,7 @@ public class SuperButton extends JButton implements ActionListener{
 
     // The constructor of the class;
     public SuperButton(int positionButtonWidth, int positionButtonHeight){
+
 
         // activating and creating the button;
         addActionListener(this);
@@ -190,20 +204,29 @@ public class SuperButton extends JButton implements ActionListener{
                     allButton.resetColorButton(false);
                     allButton.setBackground(null);
                 }
+
             }
 
             // Analysig all the positions;
             if (lastButton.positionButtonWidth >= button.positionButtonWidth) {
-
+                try {
+                    AudioInputStream audioStream = AudioSystem.getAudioInputStream(button.movePieceSound);
+                    button.clipSound = AudioSystem.getClip();
+                    button.clipSound.open(audioStream);
+                } catch (UnsupportedAudioFileException e) {
+                    throw new RuntimeException(e);
+                }
                 if (lastButton.positionButtonHeight >= button.positionButtonHeight) {
                     // Moving in the Graphic Board;
-                    GraphicalBoard.movePieceGUI(board, lastPiece, (lastButton.positionButtonWidth - button.positionButtonWidth) / -96, 
-                        (lastButton.positionButtonHeight - button.positionButtonHeight) / -96); 
+                    GraphicalBoard.movePieceGUI(board, lastPiece, (lastButton.positionButtonWidth - button.positionButtonWidth) / -96,
+                        (lastButton.positionButtonHeight - button.positionButtonHeight) / -96);
+                    button.clipSound.start();
                 }
                 else {
                     // Moving in the Graphic Board;
                     GraphicalBoard.movePieceGUI(board, lastPiece, (lastButton.positionButtonWidth - button.positionButtonWidth) / -96, 
-                        (button.positionButtonHeight - lastButton.positionButtonHeight) / 96);  
+                        (button.positionButtonHeight - lastButton.positionButtonHeight) / 96);
+                    button.clipSound.start();
                 }
             }
             else {
@@ -211,12 +234,14 @@ public class SuperButton extends JButton implements ActionListener{
                 if (lastButton.positionButtonHeight >= button.positionButtonHeight) {
                     // Moving in the Graphic Board;
                     GraphicalBoard.movePieceGUI(board, lastPiece, (button.positionButtonWidth - lastButton.positionButtonWidth) / 96, 
-                        (lastButton.positionButtonHeight - button.positionButtonHeight) / -96);    
+                        (lastButton.positionButtonHeight - button.positionButtonHeight) / -96);
+                    button.clipSound.start();
                 }
                 else {
                     // Moving in the Graphic Board;
                     GraphicalBoard.movePieceGUI(board, lastPiece, (button.positionButtonWidth - lastButton.positionButtonWidth) / 96, 
                         (button.positionButtonHeight - lastButton.positionButtonHeight) / 96);
+                    button.clipSound.start();
                 }
             }
 

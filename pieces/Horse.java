@@ -1,3 +1,5 @@
+package Chess.pieces;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -20,11 +22,11 @@ public class Horse extends Pieces {
         // Verifying if it's white or black;
         if (isWhite) {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/WhitePieces/WhiteHorse.png").getImage();
+                ImageIcon( System.getProperty("user.dir") + "/Images/Pieces/WhitePieces/WhiteHorse.png").getImage();
         }
         else {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/BlackPieces/BlackHorse.png").getImage();
+                ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/BlackPieces/BlackHorse.png").getImage();
         }
     }
 }

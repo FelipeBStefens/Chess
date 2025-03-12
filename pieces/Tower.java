@@ -1,3 +1,5 @@
+package Chess.pieces;
+
 import javax.swing.*;
 import java.awt.*;
 
@@ -20,11 +22,11 @@ public class Tower extends Pieces {
         // Verifying if it's white or black;
         if (isWhite) {
             return new
-                    ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/WhitePieces/WhiteTower.png").getImage();
+                    ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/WhitePieces/WhiteTower.png").getImage();
         }
         else {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/BlackPieces/BlackTower.png").getImage();
+                ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/BlackPieces/BlackTower.png").getImage();
         }
     }
 }

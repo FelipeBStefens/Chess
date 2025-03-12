@@ -1,3 +1,7 @@
+package Chess.pieces;
+
+import Chess.pieces.Pieces;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -20,11 +24,11 @@ public class Queen extends Pieces {
         // Verifying if it's white or black;
         if (isWhite) {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/WhitePieces/WhiteQueen.png").getImage();
+                ImageIcon( System.getProperty("user.dir") + "/Images/Pieces/WhitePieces/WhiteQueen.png").getImage();
         }
         else {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/BlackPieces/BlackQueen.png").getImage();
+                ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/BlackPieces/BlackQueen.png").getImage();
         }
     }
 }

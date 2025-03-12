@@ -1,3 +1,5 @@
+package Chess.pieces;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
@@ -20,11 +22,11 @@ public class Pawn extends Pieces {
         // Verifying if it's white or black;
         if (isWhite) {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/WhitePieces/WhitePawn.png").getImage();
+                ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/WhitePieces/WhitePawn.png").getImage();
         }
         else {
             return new 
-                ImageIcon("C:/Users/jstef/Desktop/Projetos Programação/JavaProjects/Chess/Images/Pieces/BlackPieces/BlackPawn.png").getImage();
+                ImageIcon(System.getProperty("user.dir") + "/Images/Pieces/BlackPieces/BlackPawn.png").getImage();
         }
     }
 }
