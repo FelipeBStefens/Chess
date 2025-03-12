@@ -9,10 +9,12 @@ import java.util.Arrays;
 import javax.swing.*;
 
 public class GraphicalBoard extends JFrame{
-    
+
+    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
     // Constants to use in the program, that are numbers in pixels;
-    private static final int SIZE_BOARD = 768;
-    private static final int GRID_SIZE = 96;
+    private static final int SIZE_BOARD = (int) (0.9 * screenSize.height);
+    private static final int GRID_SIZE = (int) SIZE_BOARD/8;
     private static final int INITIAL_PIECE_WIDTH = 392;
     private static final int INITIAL_PIECE_HEIGHT = 60;
     private static final int INITIAL_BUTTON_WIDTH = INITIAL_PIECE_WIDTH + 1;
@@ -166,7 +168,8 @@ public class GraphicalBoard extends JFrame{
         setLayout(null);
         setResizable(false);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(1920, 1080);
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setSize(screenSize.width, screenSize.height);
         
         // Putting an Icon on the Window;
         ImageIcon imageIcon = new ImageIcon(System.getProperty("user.dir")+"/Images/ChessIcon.jpg");
@@ -213,32 +216,21 @@ public class GraphicalBoard extends JFrame{
             
         // Put the backgroud of the board in black;
         graphics.setColor(Color.BLACK);
-        graphics.fillRect((getSize().width - SIZE_BOARD)/2, (getSize().height - SIZE_BOARD)/2, SIZE_BOARD, SIZE_BOARD);
+        graphics.fillRect((screenSize.width - SIZE_BOARD)/2, (screenSize.height - SIZE_BOARD)/2 + 25, SIZE_BOARD, SIZE_BOARD);
       
         // Select parts of the board and painting with white;
         graphics.setColor(Color.WHITE); 
-        int numCols = getSize().width / GRID_SIZE;
+        int numCols = screenSize.width/ GRID_SIZE;
         for (int row = 0; row < 8; row++) {
-                
-            if (row % 2 == 0) {
-                for (int col = 0; col < numCols/2; col  += 2) {
-                    
-                    int x = (getSize().width - SIZE_BOARD) / 2 + col * GRID_SIZE;
-                    int y = (getSize().height - SIZE_BOARD) / 2 + row * GRID_SIZE;
-        
-                    graphics.fillRect(x, y, GRID_SIZE, GRID_SIZE);
-                }
-            }
-            else {
-                for (int col = 1; col < numCols/2; col += 2) {
-                    
-                    int x = (getSize().width - SIZE_BOARD) / 2 + col * GRID_SIZE;
-                    int y = (getSize().height - SIZE_BOARD) / 2 + row * GRID_SIZE;
-        
+            for (int col = 0; col < 8; col++) {
+                if ((row + col) % 2 == 0) { // Alterna cores para criar o padrão xadrez
+                    int x = (screenSize.width - SIZE_BOARD) / 2 + col * GRID_SIZE;
+                    int y = (screenSize.height - SIZE_BOARD) / 2 + 25 + row * GRID_SIZE;
                     graphics.fillRect(x, y, GRID_SIZE, GRID_SIZE);
                 }
             }
         }
+
 
         // Drawing all the black pieces that are alive in the game;
         for (int i = 0; i < SuperButton.blackPieces.size(); i++) {
