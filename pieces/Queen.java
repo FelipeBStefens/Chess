@@ -1,7 +1,3 @@
-package Chess.pieces;
-
-import Chess.pieces.Pieces;
-
 import java.awt.Image;
 import javax.swing.ImageIcon;
 

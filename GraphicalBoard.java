@@ -1,24 +1,19 @@
-package Chess;
-
-import Chess.pieces.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.swing.*;
 
 public class GraphicalBoard extends JFrame{
 
+    // Getting the height and width of the screen;
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
     // Constants to use in the program, that are numbers in pixels;
-    private static final int SIZE_BOARD = (int) (0.9 * screenSize.height);
+    private static final int HEIGHT_COEFICIENT = 25;
+    public static final int SIZE_BOARD = (int) (0.9 * screenSize.height);
     private static final int GRID_SIZE = (int) SIZE_BOARD/8;
-    private static final int INITIAL_PIECE_WIDTH = 392;
-    private static final int INITIAL_PIECE_HEIGHT = 60;
-    private static final int INITIAL_BUTTON_WIDTH = INITIAL_PIECE_WIDTH + 1;
-    private static final int INITIAL_BUTTON_HEIGHT = INITIAL_PIECE_HEIGHT - 3;
+    private static final int INITIAL_PIECE_WIDTH = (screenSize.width - SIZE_BOARD)/2;
+    private static final int INITIAL_PIECE_HEIGHT = (screenSize.height - SIZE_BOARD)/2 + HEIGHT_COEFICIENT;
 
     // Instanciate the black pieces:
     // The King and Queen;
@@ -78,78 +73,77 @@ public class GraphicalBoard extends JFrame{
 
     // Instanciate the buttons;
     // Line 1;
-
-    public SuperButton button1x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT);
-    public SuperButton button1x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT);
-    public SuperButton button1x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
-    public SuperButton button1x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
-    public SuperButton button1x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
-    public SuperButton button1x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
-    public SuperButton button1x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
-    public SuperButton button1x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT);
+    public SuperButton button1x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT);
+    public SuperButton button1x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public SuperButton button1x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public SuperButton button1x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public SuperButton button1x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public SuperButton button1x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public SuperButton button1x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
+    public SuperButton button1x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
     // Line 2;
-    public SuperButton button2x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
-    public SuperButton button2x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
-    public SuperButton button2x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
-    public SuperButton button2x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
-    public SuperButton button2x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
-    public SuperButton button2x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
-    public SuperButton button2x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
-    public SuperButton button2x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + GRID_SIZE);
+    public SuperButton button2x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public SuperButton button2x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public SuperButton button2x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public SuperButton button2x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public SuperButton button2x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public SuperButton button2x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public SuperButton button2x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
+    public SuperButton button2x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + GRID_SIZE);
     // Line 3;
-    public SuperButton button3x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
-    public SuperButton button3x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
-    public SuperButton button3x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
-    public SuperButton button3x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
-    public SuperButton button3x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
-    public SuperButton button3x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
-    public SuperButton button3x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
-    public SuperButton button3x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
+    public SuperButton button3x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 2 * GRID_SIZE);
     // Line 4;
-    public SuperButton button4x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
-    public SuperButton button4x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
-    public SuperButton button4x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
-    public SuperButton button4x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
-    public SuperButton button4x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
-    public SuperButton button4x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 *GRID_SIZE);
-    public SuperButton button4x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
-    public SuperButton button4x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 3 *GRID_SIZE);
+    public SuperButton button4x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 3 * GRID_SIZE);
+    public SuperButton button4x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 3 * GRID_SIZE);
     // Line 5
-    public SuperButton button5x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
-    public SuperButton button5x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
-    public SuperButton button5x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
-    public SuperButton button5x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
-    public SuperButton button5x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
-    public SuperButton button5x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
-    public SuperButton button5x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
-    public SuperButton button5x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
+    public SuperButton button5x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 4 * GRID_SIZE);
     // Line 6
-    public SuperButton button6x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
-    public SuperButton button6x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
-    public SuperButton button6x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
-    public SuperButton button6x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
-    public SuperButton button6x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
-    public SuperButton button6x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
-    public SuperButton button6x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
-    public SuperButton button6x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
+    public SuperButton button6x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 5 * GRID_SIZE);
     // Line 7
-    public SuperButton button7x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
-    public SuperButton button7x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
-    public SuperButton button7x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
-    public SuperButton button7x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
-    public SuperButton button7x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
-    public SuperButton button7x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
-    public SuperButton button7x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
-    public SuperButton button7x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
+    public SuperButton button7x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 6 * GRID_SIZE);
     // Line 8;
-    public SuperButton button8x1 = new SuperButton(INITIAL_BUTTON_WIDTH, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
-    public SuperButton button8x2 = new SuperButton(INITIAL_BUTTON_WIDTH + GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
-    public SuperButton button8x3 = new SuperButton(INITIAL_BUTTON_WIDTH + 2 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
-    public SuperButton button8x4 = new SuperButton(INITIAL_BUTTON_WIDTH + 3 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
-    public SuperButton button8x5 = new SuperButton(INITIAL_BUTTON_WIDTH + 4 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
-    public SuperButton button8x6 = new SuperButton(INITIAL_BUTTON_WIDTH + 5 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
-    public SuperButton button8x7 = new SuperButton(INITIAL_BUTTON_WIDTH + 6 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
-    public SuperButton button8x8 = new SuperButton(INITIAL_BUTTON_WIDTH + 7 * GRID_SIZE, INITIAL_BUTTON_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x1 = new SuperButton(INITIAL_PIECE_WIDTH, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x2 = new SuperButton(INITIAL_PIECE_WIDTH + GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x3 = new SuperButton(INITIAL_PIECE_WIDTH + 2 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x4 = new SuperButton(INITIAL_PIECE_WIDTH + 3 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x5 = new SuperButton(INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x6 = new SuperButton(INITIAL_PIECE_WIDTH + 5 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x7 = new SuperButton(INITIAL_PIECE_WIDTH + 6 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
+    public SuperButton button8x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
 
     // The matriz of all the buttons of the Window;
     private SuperButton[][] buttonsMatrix = {{button1x1,button1x2,button1x3,button1x4,button1x5,button1x6,button1x7,button1x8},
@@ -216,16 +210,17 @@ public class GraphicalBoard extends JFrame{
             
         // Put the backgroud of the board in black;
         graphics.setColor(Color.BLACK);
-        graphics.fillRect((screenSize.width - SIZE_BOARD)/2, (screenSize.height - SIZE_BOARD)/2 + 25, SIZE_BOARD, SIZE_BOARD);
+        graphics.fillRect((screenSize.width - SIZE_BOARD)/2, (screenSize.height - SIZE_BOARD)/2 + HEIGHT_COEFICIENT, SIZE_BOARD, SIZE_BOARD);
       
         // Select parts of the board and painting with white;
         graphics.setColor(Color.WHITE); 
-        int numCols = screenSize.width/ GRID_SIZE;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                if ((row + col) % 2 == 0) { // Alterna cores para criar o padrão xadrez
+                
+                // Griding the board with white houses;
+                if ((row + col) % 2 == 0) { 
                     int x = (screenSize.width - SIZE_BOARD) / 2 + col * GRID_SIZE;
-                    int y = (screenSize.height - SIZE_BOARD) / 2 + 25 + row * GRID_SIZE;
+                    int y = (screenSize.height - SIZE_BOARD) / 2 + HEIGHT_COEFICIENT + row * GRID_SIZE;
                     graphics.fillRect(x, y, GRID_SIZE, GRID_SIZE);
                 }
             }

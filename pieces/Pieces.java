@@ -1,5 +1,3 @@
-package Chess.pieces;
-
 import java.awt.Image;
 
 public abstract class Pieces {
