@@ -1,11 +1,15 @@
-import java.awt.Image;
+package Chess.pieces;
+
+import java.awt.*;
 
 public abstract class Pieces {
-    
+
+    private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+
     // Private properties to math;
-    private static final int INITIAL_PIECE_WIDTH = 392;
-    private static final int INITIAL_PIECE_HEIGHT = 60;
-    private static final int GRID_SIZE = 96;
+    private static final int INITIAL_PIECE_WIDTH = (screenSize.width - (int)(0.9 * screenSize.height))/2;
+    private static final int INITIAL_PIECE_HEIGHT = (screenSize.height - (int)(0.9 * screenSize.height))/2;
+    private static final int GRID_SIZE = (int) (((int)(0.9 * screenSize.height))/8);
     
     // Properties of the positions and color;
     public int initialWidthPosition;
@@ -27,6 +31,10 @@ public abstract class Pieces {
     // Get method to get the heigth;
     public int getPieceHeight() {
         return initialHeightPosition;
+    }
+
+    public static int getGridSize(){
+        return GRID_SIZE;
     }
 
     // Set the size of the width and the heigth, used to move graphically the piece;

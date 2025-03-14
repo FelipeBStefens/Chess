@@ -1,7 +1,9 @@
+package Chess.pieces;
+
 import java.awt.Image;
 import javax.swing.ImageIcon;
 
-public class Bishop extends Pieces{
+public class Bishop extends Pieces {
  
     // The constructor of the class;
     public Bishop(boolean isWhite, int initialWidthPosition, int initialHeightPosition) {

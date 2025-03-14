@@ -1,3 +1,7 @@
+package Chess;
+
+import Chess.pieces.*;
+
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -7,13 +11,13 @@ public class GraphicalBoard extends JFrame{
 
     // Getting the height and width of the screen;
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
+    public static boolean endGame = false;
 
     // Constants to use in the program, that are numbers in pixels;
-    private static final int HEIGHT_COEFICIENT = 25;
     public static final int SIZE_BOARD = (int) (0.9 * screenSize.height);
-    private static final int GRID_SIZE = (int) SIZE_BOARD/8;
+    private static final int GRID_SIZE = (int) (SIZE_BOARD/8);
     private static final int INITIAL_PIECE_WIDTH = (screenSize.width - SIZE_BOARD)/2;
-    private static final int INITIAL_PIECE_HEIGHT = (screenSize.height - SIZE_BOARD)/2 + HEIGHT_COEFICIENT;
+    private static final int INITIAL_PIECE_HEIGHT = ((screenSize.height - SIZE_BOARD)/2);
 
     // Instanciate the black pieces:
     // The King and Queen;
@@ -200,6 +204,7 @@ public class GraphicalBoard extends JFrame{
         piece.addSize(gridWidth, gridHeight);
         
         // Repaint the board;
+        board.revalidate();
         board.repaint();
     }
 
@@ -210,7 +215,7 @@ public class GraphicalBoard extends JFrame{
             
         // Put the backgroud of the board in black;
         graphics.setColor(Color.BLACK);
-        graphics.fillRect((screenSize.width - SIZE_BOARD)/2, (screenSize.height - SIZE_BOARD)/2 + HEIGHT_COEFICIENT, SIZE_BOARD, SIZE_BOARD);
+        graphics.fillRect((screenSize.width - SIZE_BOARD)/2, (screenSize.height - SIZE_BOARD)/2, SIZE_BOARD, SIZE_BOARD);
       
         // Select parts of the board and painting with white;
         graphics.setColor(Color.WHITE); 
@@ -220,7 +225,7 @@ public class GraphicalBoard extends JFrame{
                 // Griding the board with white houses;
                 if ((row + col) % 2 == 0) { 
                     int x = (screenSize.width - SIZE_BOARD) / 2 + col * GRID_SIZE;
-                    int y = (screenSize.height - SIZE_BOARD) / 2 + HEIGHT_COEFICIENT + row * GRID_SIZE;
+                    int y = (screenSize.height - SIZE_BOARD) / 2 + row * GRID_SIZE;
                     graphics.fillRect(x, y, GRID_SIZE, GRID_SIZE);
                 }
             }
@@ -231,15 +236,62 @@ public class GraphicalBoard extends JFrame{
         for (int i = 0; i < SuperButton.blackPieces.size(); i++) {
 
             graphics.drawImage(SuperButton.blackPieces.get(i).getImage(), SuperButton.blackPieces.get(i).getPieceWidth(), 
-            SuperButton.blackPieces.get(i).getPieceHeight(), this);  
+            SuperButton.blackPieces.get(i).getPieceHeight(), GRID_SIZE, GRID_SIZE,this);
         }
 
         // Drawing all the white pieces that are alive in the game;
         for (int i = 0; i < SuperButton.whitePieces.size(); i++) {
 
             graphics.drawImage(SuperButton.whitePieces.get(i).getImage(), SuperButton.whitePieces.get(i).getPieceWidth(), 
-            SuperButton.whitePieces.get(i).getPieceHeight(), this); 
+            SuperButton.whitePieces.get(i).getPieceHeight(),GRID_SIZE, GRID_SIZE, this);
         }
     }
-    
+
+    public void winWindow(boolean winnerColor){
+        endGame = true;
+
+        if(winnerColor){
+
+            Object[] options = {"OK"};
+
+            int result = JOptionPane.showOptionDialog(
+                    null,
+                    "Checkmate, The white team wins",
+                    "Win Window",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+
+            if (result == JOptionPane.CLOSED_OPTION) {
+                dispose();
+            } else {
+                dispose();
+            }
+
+        }else {
+            Object[] options = {"OK"};
+
+            int result = JOptionPane.showOptionDialog(
+                    null,
+                    "Checkmate, The black team wins",
+                    "Win Window",
+                    JOptionPane.DEFAULT_OPTION,
+                    JOptionPane.INFORMATION_MESSAGE,
+                    null,
+                    options,
+                    options[0]
+            );
+
+            if (result == JOptionPane.CLOSED_OPTION) {
+                dispose();
+            } else {
+                dispose();
+            }
+
+        }
+    }
+
 }

@@ -1,3 +1,7 @@
+package Chess;
+
+import Chess.pieces.*;
+
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
@@ -143,24 +147,21 @@ public class SuperButton extends JButton implements ActionListener{
     public void actionPerformed(ActionEvent e) {
 
         // Try this part of the code; 
-        try { 
-            if (this.ableMove) {
-                onceClicked(null, this);
-            } 
-            else {
-                // Getting the piece and selecting the round;
-                Pieces piece = getPiece(this, isWhiteTurn);
-                if (piece != null) {
-                    
-                    onceClicked(piece, this);
-                } 
-            }
+        try {
+            // Getting the piece and selecting the round;
+            Pieces piece = getPiece(this, isWhiteTurn);
+            onceClicked(piece, this);
         }
         // Catching all the possible Exceptions that can happen;
         catch (Exception exception) {
 
             System.out.println(exception.getMessage());
             System.out.println("The Exception involves the buttons and the Graphical Board...");
+        }finally{
+            if(!verifyWin()){
+                disableButtons();
+                board.winWindow(!isWhiteTurn);
+            }
         }
     }
 
@@ -215,16 +216,16 @@ public class SuperButton extends JButton implements ActionListener{
                         // Starting the audio;
                         button.clipSound.start();
                         // Moving in the Graphic Board;
-                        GraphicalBoard.movePieceGUI(board, lastPiece, (lastButton.positionButtonWidth - button.positionButtonWidth) / -96,
-                            (lastButton.positionButtonHeight - button.positionButtonHeight) / -96);
+                        GraphicalBoard.movePieceGUI(board, lastPiece, (lastButton.positionButtonWidth - button.positionButtonWidth) / -Pieces.getGridSize(),
+                            (lastButton.positionButtonHeight - button.positionButtonHeight) / - Pieces.getGridSize());
                     }
                     else {
 
                         // Starting the audio;
                         button.clipSound.start();
                         // Moving in the Graphic Board;
-                        GraphicalBoard.movePieceGUI(board, lastPiece, (lastButton.positionButtonWidth - button.positionButtonWidth) / -96, 
-                            (button.positionButtonHeight - lastButton.positionButtonHeight) / 96);
+                        GraphicalBoard.movePieceGUI(board, lastPiece, (lastButton.positionButtonWidth - button.positionButtonWidth) / -Pieces.getGridSize(),
+                            (button.positionButtonHeight - lastButton.positionButtonHeight) / Pieces.getGridSize());
                     }
                 }
                 else {
@@ -234,16 +235,16 @@ public class SuperButton extends JButton implements ActionListener{
                         // Starting the audio;
                         button.clipSound.start();
                         // Moving in the Graphic Board;
-                        GraphicalBoard.movePieceGUI(board, lastPiece, (button.positionButtonWidth - lastButton.positionButtonWidth) / 96, 
-                            (lastButton.positionButtonHeight - button.positionButtonHeight) / -96);
+                        GraphicalBoard.movePieceGUI(board, lastPiece, (button.positionButtonWidth - lastButton.positionButtonWidth) / Pieces.getGridSize(),
+                            (lastButton.positionButtonHeight - button.positionButtonHeight) / -Pieces.getGridSize());
                     }
                     else {
 
                         // Starting the audio;
                         button.clipSound.start();
                         // Moving in the Graphic Board;
-                        GraphicalBoard.movePieceGUI(board, lastPiece, (button.positionButtonWidth - lastButton.positionButtonWidth) / 96, 
-                            (button.positionButtonHeight - lastButton.positionButtonHeight) / 96);
+                        GraphicalBoard.movePieceGUI(board, lastPiece, (button.positionButtonWidth - lastButton.positionButtonWidth) / Pieces.getGridSize(),
+                            (button.positionButtonHeight - lastButton.positionButtonHeight) / Pieces.getGridSize());
                     }
                 }
             } 
@@ -255,8 +256,7 @@ public class SuperButton extends JButton implements ActionListener{
 
             // Selected the last button that was clicked;
             eliminatePiece(lastPiece, lastPiece.isWhite);
-            SuperButton.lastButton = button; 
-            SuperButton.lastPiece = piece;
+            SuperButton.lastButton = button;
             isWhiteTurn = !isWhiteTurn;
         }              
         // Analysing the possible buttons to click with the positions of the button and the piece; 
@@ -493,6 +493,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column - i].resetColorButton(true);
                                 buttonsMatrix[line + i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column - i].ableMove = true;
+                                break;
                             }
                             else if (verifyPiece(buttonsMatrix[line + i][column - i], piece.isWhite)) {
                                 break;
@@ -912,4 +913,28 @@ public class SuperButton extends JButton implements ActionListener{
         }   
         return false;
     }
+
+    public static boolean verifyWin() {
+
+        boolean hasKing = false;
+        boolean whiteBlackTurn = !isWhiteTurn;
+
+        if (whiteBlackTurn) {
+            for (Pieces piece : blackPieces) {
+                if (piece instanceof King) {
+                    hasKing = true;
+                    return hasKing;
+                }
+            }
+        } else {
+            for (Pieces piece : whitePieces) {
+                if (piece instanceof King) {
+                    hasKing = true;
+                    return hasKing;
+                }
+            }
+        }
+        return hasKing;
+    }
+
 }
