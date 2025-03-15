@@ -1,7 +1,3 @@
-package Chess;
-
-import Chess.pieces.*;
-
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -12,13 +8,14 @@ public class GraphicalBoard extends JFrame{
     // Getting the height and width of the screen;
     private static final Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
     public static boolean endGame = false;
+    private static boolean inverseBoard = false;
 
     // Constants to use in the program, that are numbers in pixels;
     public static final int SIZE_BOARD = (int) (0.9 * screenSize.height);
     private static final int GRID_SIZE = (int) (SIZE_BOARD/8);
     private static final int INITIAL_PIECE_WIDTH = (screenSize.width - SIZE_BOARD)/2;
-    private static final int INITIAL_PIECE_HEIGHT = ((screenSize.height - SIZE_BOARD)/2);
-
+    private static final int INITIAL_PIECE_HEIGHT = (screenSize.height - SIZE_BOARD)/2;
+ 
     // Instanciate the black pieces:
     // The King and Queen;
     public static King blackKing = new King(false, INITIAL_PIECE_WIDTH + 4 * GRID_SIZE, INITIAL_PIECE_HEIGHT);
@@ -216,9 +213,37 @@ public class GraphicalBoard extends JFrame{
         // Put the backgroud of the board in black;
         graphics.setColor(Color.BLACK);
         graphics.fillRect((screenSize.width - SIZE_BOARD)/2, (screenSize.height - SIZE_BOARD)/2, SIZE_BOARD, SIZE_BOARD);
-      
-        // Select parts of the board and painting with white;
+        
+        graphics.setColor(new Color(0, 110, 0));
+        graphics.fillRect((screenSize.width - SIZE_BOARD)/3, (screenSize.height - SIZE_BOARD)/2, 
+            (screenSize.width - SIZE_BOARD)/6, SIZE_BOARD);
+        graphics.fillRect((screenSize.width - SIZE_BOARD)/3, (screenSize.height + SIZE_BOARD)/2, 
+            (screenSize.width + 5 * SIZE_BOARD)/6, (screenSize.height - SIZE_BOARD)/2);
+
         graphics.setColor(Color.WHITE); 
+        graphics.setFont(new Font("Arial", Font.BOLD, 24));
+        char[] lettersArray = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h'};
+        
+        if (!inverseBoard) {
+            for (int i = 8; i > 0; i--) {
+            
+                graphics.drawString("" + (i), (5 * (screenSize.width - SIZE_BOARD))/12, 
+                    ((screenSize.height - SIZE_BOARD)/2 + (GRID_SIZE) / 2) + (8 - i) * GRID_SIZE);
+                graphics.drawString("" + lettersArray[8 - i], ((screenSize.width - SIZE_BOARD)/2 + (GRID_SIZE) / 2) + (8 - i) * GRID_SIZE,
+                    (3 * screenSize.height + SIZE_BOARD)/4);
+            }
+        }
+        else {
+            for (int i = 0; i < 8; i++) {
+            
+                graphics.drawString("" + (i + 1), (5 * (screenSize.width - SIZE_BOARD))/12, 
+                    ((screenSize.height - SIZE_BOARD)/2 + (GRID_SIZE) / 2) + i * GRID_SIZE);
+                graphics.drawString("" + lettersArray[i], ((screenSize.width - SIZE_BOARD)/2 + (GRID_SIZE) / 2) + i * GRID_SIZE,
+                    (3 * screenSize.height + SIZE_BOARD)/4);
+            }
+        }
+
+        // Select parts of the board and painting with white;
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
                 
@@ -245,6 +270,25 @@ public class GraphicalBoard extends JFrame{
             graphics.drawImage(SuperButton.whitePieces.get(i).getImage(), SuperButton.whitePieces.get(i).getPieceWidth(), 
             SuperButton.whitePieces.get(i).getPieceHeight(),GRID_SIZE, GRID_SIZE, this);
         }
+    }
+
+    public void invertBoard(ArrayList<Pieces> whitePieces, ArrayList<Pieces> blackPieces) {
+        ArrayList<Pieces> allPieces = new ArrayList<>();
+        allPieces.addAll(whitePieces);
+        allPieces.addAll(blackPieces);
+    
+        // Centro do tabuleiro com precisão em double
+        double centerX = INITIAL_PIECE_WIDTH + SIZE_BOARD / 2.0;
+        double centerY = INITIAL_PIECE_HEIGHT + SIZE_BOARD / 2.0;
+    
+        for (Pieces piece : allPieces) {
+            piece.initialWidthPosition = (int) Math.round(2 * centerX - piece.initialWidthPosition - GRID_SIZE);
+            piece.initialHeightPosition = (int) Math.round(2 * centerY - piece.initialHeightPosition - GRID_SIZE);
+        }
+        
+        inverseBoard = !inverseBoard;
+        revalidate();
+        repaint();
     }
 
     public void winWindow(boolean winnerColor){

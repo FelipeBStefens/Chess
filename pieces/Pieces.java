@@ -1,5 +1,3 @@
-package Chess.pieces;
-
 import java.awt.*;
 
 public abstract class Pieces {
@@ -41,18 +39,19 @@ public abstract class Pieces {
     public void addSize(int width, int height) throws Exception {
         
         // Throws the Exception if the values are invalid;
-        if (width < -7 || width > 7 || height < -7 || height > 7) {
+        if (width < -8 || width > 8 || height < -8 || height > 8) {
             throw new Exception("Invalid width or heigth value");
         }
 
         // Throws the Exceptions if the width value makes the piece out of the board;
         if (width < 0) {
             if (initialWidthPosition + (width * GRID_SIZE) < INITIAL_PIECE_WIDTH) {
+                System.out.println("Problem 2");
                 throw new Exception("Invalid width value");
             }
         }
         else {
-            if (initialWidthPosition + (width * GRID_SIZE) > INITIAL_PIECE_WIDTH + 7 * GRID_SIZE) {
+            if (initialWidthPosition + (width * GRID_SIZE) >= INITIAL_PIECE_WIDTH + 8 * GRID_SIZE) {
                 throw new Exception("Invalid width value");
             }
         }
@@ -60,11 +59,12 @@ public abstract class Pieces {
         // Throws the Exceptions if the height value makes the piece out of the board;
         if (height < 0) {
             if (initialHeightPosition + (height * GRID_SIZE) < INITIAL_PIECE_HEIGHT) {
+                System.out.println("Problem 4");
                 throw new Exception("Invalid height value");
             }
         }
         else {
-            if (initialHeightPosition + (height * GRID_SIZE) > INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE) {
+            if (initialHeightPosition + (height * GRID_SIZE) >= INITIAL_PIECE_HEIGHT + 8 * GRID_SIZE) {
                 throw new Exception("Invalid height value");
             }
         }
