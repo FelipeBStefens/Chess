@@ -28,12 +28,15 @@ public class SuperButton extends JButton implements ActionListener{
     private boolean ableMove = false;
     private boolean isDisabled = false;
     private boolean isSelected = false;
+    private static boolean whiteCanRook = true;
+    private static boolean blackCanRook = true; 
 
     // Create a new Graphical Board to move the pieces and the rounds;
     public static GraphicalBoard board = new GraphicalBoard();
     private static SuperButton lastButton;
     private static Pieces lastPiece;
     private static boolean isWhiteTurn = true;
+    private static Tower towerRook;
 
     // Definig the sound of the File and the clip;
     File movePieceSound = new File(System.getProperty("user.dir") + "\\Sounds\\ChessPieceSound.wav");
@@ -182,20 +185,7 @@ public class SuperButton extends JButton implements ActionListener{
         }
 
         // Move the piece if you click to another 'ableMove' button;
-        if (button.ableMove && piece == null) {
-
-            // Going to all buttons;
-            for (SuperButton[] buttonArray : buttonsMatrix) {
-                for (SuperButton allButton : buttonArray) {
-
-                    allButton.ableMove = false;
-                    allButton.isDisabled = false;
-                    allButton.isSelected = false;
-                    allButton.setVisible(true);
-                    allButton.resetColorButton(false);
-                    allButton.setBackground(null);
-                }
-            }
+        if (button.ableMove) {
 
             // Catching the audio errors;
             try {
@@ -206,7 +196,57 @@ public class SuperButton extends JButton implements ActionListener{
                 button.clipSound.open(audioStream);
 
                 // Analysig all the positions;
-                if (lastButton.positionButtonWidth >= button.positionButtonWidth) {
+                if (lastPiece instanceof King && lastPiece.isWhite) {
+                   
+                    if (Math.abs(button.positionButtonWidth - buttonsMatrix[7][7].positionButtonWidth) <= ERROR_MARGIN && 
+                        Math.abs(button.positionButtonHeight - buttonsMatrix[7][7].positionButtonHeight) <= ERROR_MARGIN) {
+
+                        // Starting the audio;
+                        button.clipSound.start();
+                        // Moving in the Graphic Board;
+                        GraphicalBoard.movePieceGUI(board, lastPiece, 2, 0);
+                        GraphicalBoard.movePieceGUI(board, towerRook, -2, 0);
+                        towerRook = null;
+                        whiteCanRook = false;
+                    }
+                    else if (Math.abs(button.positionButtonWidth - buttonsMatrix[7][0].positionButtonWidth) <= ERROR_MARGIN && 
+                        Math.abs(button.positionButtonHeight - buttonsMatrix[7][0].positionButtonHeight) <= ERROR_MARGIN) {
+                        
+                        // Starting the audio;
+                        button.clipSound.start();
+                        // Moving in the Graphic Board;
+                        GraphicalBoard.movePieceGUI(board, lastPiece, -3, 0);
+                        GraphicalBoard.movePieceGUI(board, towerRook, 2, 0);
+                        towerRook = null;
+                        whiteCanRook = false;
+                    }
+                }
+                else if (lastPiece instanceof King && !lastPiece.isWhite) {
+          
+                    if (Math.abs(button.positionButtonWidth - buttonsMatrix[7][7].positionButtonWidth) <= ERROR_MARGIN && 
+                        Math.abs(button.positionButtonHeight - buttonsMatrix[7][7].positionButtonHeight) <= ERROR_MARGIN) {
+
+                        // Starting the audio;
+                        button.clipSound.start();
+                        // Moving in the Graphic Board;
+                        GraphicalBoard.movePieceGUI(board, lastPiece, 3, 0);
+                        GraphicalBoard.movePieceGUI(board, towerRook, -2, 0);
+                        towerRook = null;
+                        blackCanRook = false;
+                    }
+                    else if (Math.abs(button.positionButtonWidth - buttonsMatrix[7][0].positionButtonWidth) <= ERROR_MARGIN && 
+                        Math.abs(button.positionButtonHeight - buttonsMatrix[7][0].positionButtonHeight) <= ERROR_MARGIN) {
+
+                        // Starting the audio;
+                        button.clipSound.start();
+                        // Moving in the Graphic Board;
+                        GraphicalBoard.movePieceGUI(board, lastPiece, -2, 0);
+                        GraphicalBoard.movePieceGUI(board, towerRook, 2, 0);
+                        towerRook = null;
+                        blackCanRook = false;
+                    }
+                }
+                if (lastButton.positionButtonWidth >= button.positionButtonWidth && piece == null) {
 
                     if (lastButton.positionButtonHeight >= button.positionButtonHeight) {
 
@@ -225,7 +265,7 @@ public class SuperButton extends JButton implements ActionListener{
                             (int)((button.positionButtonHeight - lastButton.positionButtonHeight) / Pieces.getGridSize()));
                     }
                 }
-                else {
+                else if (lastButton.positionButtonWidth <= button.positionButtonWidth && piece == null){
 
                     if (lastButton.positionButtonHeight >= button.positionButtonHeight) {
 
@@ -251,11 +291,81 @@ public class SuperButton extends JButton implements ActionListener{
                 throw new RuntimeException(e);
             }
 
-            // Selected the last button that was clicked;
             eliminatePiece(lastPiece, lastPiece.isWhite);
+
+            Queen newQueen = new Queen(isWhiteTurn, lastPiece.initialWidthPosition, lastPiece.initialHeightPosition);
+            Tower newTower = new Tower(isWhiteTurn, lastPiece.initialWidthPosition, lastPiece.initialHeightPosition);
+            Bishop newBishop = new Bishop(isWhiteTurn, lastPiece.initialWidthPosition, lastPiece.initialHeightPosition);
+            Horse newHorse = new Horse(isWhiteTurn, lastPiece.initialWidthPosition, lastPiece.initialHeightPosition);
+            // Promoting the pieces; 
+            if (lastPiece instanceof Pawn && Math.abs(lastPiece.initialHeightPosition - (screenSize.height - (int)(0.9 * screenSize.height))/2) <= ERROR_MARGIN && lastPiece != null) {
+                
+                String promotionString = PromotionButtons.promotionButtons(board, lastPiece.isWhite);
+                if (promotionString.equals("Queen")) {
+
+                    if (isWhiteTurn) {
+                        whitePieces.remove(lastPiece);
+                        whitePieces.add(newQueen);
+                    }
+                    else {
+                        blackPieces.remove(lastPiece);
+                        blackPieces.add(newQueen);
+                    }
+                }
+                else if (promotionString.equals("Tower")) {
+
+                    if (isWhiteTurn) {
+                        whitePieces.remove(lastPiece);
+                        whitePieces.add(newTower);
+                    }
+                    else {
+                        blackPieces.remove(lastPiece);
+                        blackPieces.add(newTower);
+                    }
+                }
+                else if (promotionString.equals("Bishop")) {
+                    
+                    if (isWhiteTurn) {
+                        whitePieces.remove(lastPiece);
+                        whitePieces.add(newBishop);
+                    }
+                    else {
+                        blackPieces.remove(lastPiece);
+                        blackPieces.add(newBishop);
+                    }
+                }
+                else if (promotionString.equals("Horse")) {
+                    
+                    if (isWhiteTurn) {
+                        whitePieces.remove(lastPiece);
+                        whitePieces.add(newHorse);
+                    }
+                    else {
+                        blackPieces.remove(lastPiece);
+                        blackPieces.add(newHorse);
+                    }
+                }
+                board.revalidate();
+                board.repaint();
+            }
+
+            // Selected the last button that was clicked;
             board.invertBoard(whitePieces, blackPieces);
             SuperButton.lastButton = button;
             isWhiteTurn = !isWhiteTurn;
+            
+            // Going to all buttons;
+            for (SuperButton[] buttonArray : buttonsMatrix) {
+                for (SuperButton allButton : buttonArray) {
+
+                    allButton.ableMove = false;
+                    allButton.isDisabled = false;
+                    allButton.isSelected = false;
+                    allButton.setVisible(true);
+                    allButton.resetColorButton(false);
+                    allButton.setBackground(null);
+                }
+            }
         }              
         // Analysing the possible buttons to click with the positions of the button and the piece; 
         else if (Math.abs(button.positionButtonWidth - piece.initialWidthPosition) <= ERROR_MARGIN && 
@@ -294,6 +404,7 @@ public class SuperButton extends JButton implements ActionListener{
                         buttonsMatrix[line - 1][column - 1].resetColorButton(true);
                         buttonsMatrix[line - 1][column - 1].setBackground(RED_COLOR);
                         buttonsMatrix[line - 1][column - 1].ableMove = true;
+                        SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 1][column - 1]);
                     }
 
                     if (line - 1 >= 0 && column + 1 <= 7 && verifyPiece(buttonsMatrix[line - 1][column + 1], !piece.isWhite)) {
@@ -301,6 +412,7 @@ public class SuperButton extends JButton implements ActionListener{
                         buttonsMatrix[line - 1][column + 1].resetColorButton(true);
                         buttonsMatrix[line - 1][column + 1].setBackground(RED_COLOR);
                         buttonsMatrix[line - 1][column + 1].ableMove = true;
+                        SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 1][column + 1]);
                     }
                     disableButtons();
                 }
@@ -314,6 +426,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[i][column].resetColorButton(true);
                             buttonsMatrix[i][column].setBackground(RED_COLOR);
                             buttonsMatrix[i][column].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[i][column], !piece.isWhite)) { 
@@ -321,6 +434,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[i][column].resetColorButton(true);
                                 buttonsMatrix[i][column].setBackground(RED_COLOR);
                                 buttonsMatrix[i][column].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                             }
                             break;
                         }
@@ -333,6 +447,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[i][column].resetColorButton(true);
                             buttonsMatrix[i][column].setBackground(RED_COLOR);
                             buttonsMatrix[i][column].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[i][column], !piece.isWhite)) { 
@@ -340,6 +455,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[i][column].resetColorButton(true);
                                 buttonsMatrix[i][column].setBackground(RED_COLOR);
                                 buttonsMatrix[i][column].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                             }
                             break;
                         }
@@ -352,6 +468,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line][i].resetColorButton(true);
                             buttonsMatrix[line][i].setBackground(RED_COLOR);
                             buttonsMatrix[line][i].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[line][i], !piece.isWhite)) { 
@@ -359,6 +476,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line][i].resetColorButton(true);
                                 buttonsMatrix[line][i].setBackground(RED_COLOR);
                                 buttonsMatrix[line][i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                             }
                             break;
                         }
@@ -371,6 +489,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line][i].resetColorButton(true);
                             buttonsMatrix[line][i].setBackground(RED_COLOR);
                             buttonsMatrix[line][i].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[line][i], !piece.isWhite)) { 
@@ -378,6 +497,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line][i].resetColorButton(true);
                                 buttonsMatrix[line][i].setBackground(RED_COLOR);
                                 buttonsMatrix[line][i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                             }
                             break;
                         }
@@ -395,6 +515,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column + i].resetColorButton(true);
                                 buttonsMatrix[line - i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column + i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line - i][column + i], piece.isWhite)) {
@@ -405,6 +526,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column + i].resetColorButton(true);
                                 buttonsMatrix[line - i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column + i]);
                             }
                         }
                     }
@@ -416,6 +538,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column - i].resetColorButton(true);
                                 buttonsMatrix[line - i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column - i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line - i][column - i], piece.isWhite)) {
@@ -426,6 +549,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column - i].resetColorButton(true);
                                 buttonsMatrix[line - i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column - i]);
                             }
                         }
                     }
@@ -437,6 +561,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column + i].resetColorButton(true);
                                 buttonsMatrix[line + i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column + i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line + i][column + i], piece.isWhite)) {
@@ -447,6 +572,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column + i].resetColorButton(true);
                                 buttonsMatrix[line + i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column + i]);
                             }
                         }
                     }
@@ -458,6 +584,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column - i].resetColorButton(true);
                                 buttonsMatrix[line + i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column - i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line + i][column - i], piece.isWhite)) {
@@ -468,6 +595,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column - i].resetColorButton(true);
                                 buttonsMatrix[line + i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column - i]);
                             }
                         }
                     }     
@@ -483,6 +611,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + 2][column + 1].resetColorButton(true);
                                 buttonsMatrix[line + 2][column + 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line + 2][column + 1].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + 2][column + 1]);
                             }
                         }
                         if (column - 1 >= 0) {
@@ -491,6 +620,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + 2][column - 1].resetColorButton(true);
                                 buttonsMatrix[line + 2][column - 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line + 2][column - 1].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + 2][column - 1]);
                             }   
                         }
                     }
@@ -501,6 +631,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - 2][column + 1].resetColorButton(true);
                                 buttonsMatrix[line - 2][column + 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line - 2][column + 1].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 2][column + 1]);
                             }
                             
                         }
@@ -510,6 +641,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - 2][column - 1].resetColorButton(true);
                                 buttonsMatrix[line - 2][column - 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line - 2][column - 1].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 2][column - 1]);
                             }
                         }
                     }
@@ -520,6 +652,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + 1][column + 2].resetColorButton(true);
                                 buttonsMatrix[line + 1][column + 2].setBackground(RED_COLOR);
                                 buttonsMatrix[line + 1][column + 2].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + 1][column + 2]);
                             }
                         }
                         if (column - 2 >= 0) {
@@ -528,6 +661,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + 1][column - 2].resetColorButton(true);
                                 buttonsMatrix[line + 1][column - 2].setBackground(RED_COLOR);
                                 buttonsMatrix[line + 1][column - 2].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + 1][column - 2]);
                             }
                         }
                     }
@@ -538,6 +672,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - 1][column + 2].resetColorButton(true);
                                 buttonsMatrix[line - 1][column + 2].setBackground(RED_COLOR);
                                 buttonsMatrix[line - 1][column + 2].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 1][column + 2]);
                             }
                         }
                         if (column - 2 >= 0) {
@@ -546,6 +681,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - 1][column - 2].resetColorButton(true);
                                 buttonsMatrix[line - 1][column - 2].setBackground(RED_COLOR);
                                 buttonsMatrix[line - 1][column - 2].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 1][column - 2]);
                             }
                         }
                     }
@@ -561,6 +697,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[i][column].resetColorButton(true);
                             buttonsMatrix[i][column].setBackground(RED_COLOR);
                             buttonsMatrix[i][column].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[i][column], !piece.isWhite)) { 
@@ -568,6 +705,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[i][column].resetColorButton(true);
                                 buttonsMatrix[i][column].setBackground(RED_COLOR);
                                 buttonsMatrix[i][column].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                             }
                             break;
                         }
@@ -579,6 +717,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[i][column].resetColorButton(true);
                             buttonsMatrix[i][column].setBackground(RED_COLOR);
                             buttonsMatrix[i][column].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[i][column], !piece.isWhite)) { 
@@ -586,6 +725,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[i][column].resetColorButton(true);
                                 buttonsMatrix[i][column].setBackground(RED_COLOR);
                                 buttonsMatrix[i][column].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[i][column]);
                             }
                             break;
                         }
@@ -597,6 +737,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line][i].resetColorButton(true);
                             buttonsMatrix[line][i].setBackground(RED_COLOR);
                             buttonsMatrix[line][i].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[line][i], !piece.isWhite)) { 
@@ -604,6 +745,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line][i].resetColorButton(true);
                                 buttonsMatrix[line][i].setBackground(RED_COLOR);
                                 buttonsMatrix[line][i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                             }
                             break;
                         }
@@ -615,6 +757,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line][i].resetColorButton(true);
                             buttonsMatrix[line][i].setBackground(RED_COLOR);
                             buttonsMatrix[line][i].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                         } 
                         else {
                             if (verifyPiece(buttonsMatrix[line][i], !piece.isWhite)) { 
@@ -622,6 +765,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line][i].resetColorButton(true);
                                 buttonsMatrix[line][i].setBackground(RED_COLOR);
                                 buttonsMatrix[line][i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][i]);
                             }
                             break;
                         }
@@ -634,6 +778,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column + i].resetColorButton(true);
                                 buttonsMatrix[line - i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column + i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line - i][column + i], piece.isWhite)) {
@@ -644,6 +789,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column + i].resetColorButton(true);
                                 buttonsMatrix[line - i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column + i]);
                             }
                         }
                     }
@@ -655,6 +801,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column - i].resetColorButton(true);
                                 buttonsMatrix[line - i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column - i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line - i][column - i], piece.isWhite)) {
@@ -665,6 +812,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - i][column - i].resetColorButton(true);
                                 buttonsMatrix[line - i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line - i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - i][column - i]);
                             }
                         }
                     }
@@ -676,6 +824,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column + i].resetColorButton(true);
                                 buttonsMatrix[line + i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column + i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line + i][column + i], piece.isWhite)) {
@@ -686,6 +835,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column + i].resetColorButton(true);
                                 buttonsMatrix[line + i][column + i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column + i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column + i]);
                             }
                         }
                     }
@@ -697,6 +847,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column - i].resetColorButton(true);
                                 buttonsMatrix[line + i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column - i]);
                                 break;
                             }
                             else if (verifyPiece(buttonsMatrix[line + i][column - i], piece.isWhite)) {
@@ -707,6 +858,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + i][column - i].resetColorButton(true);
                                 buttonsMatrix[line + i][column - i].setBackground(RED_COLOR);
                                 buttonsMatrix[line + i][column - i].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + i][column - i]);
                             }
                         }
                     }     
@@ -722,6 +874,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line + 1][column].resetColorButton(true);
                             buttonsMatrix[line + 1][column].setBackground(RED_COLOR);
                             buttonsMatrix[line + 1][column].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + 1][column]);
                         }
                         
                         if (column + 1 <= 7) {
@@ -730,6 +883,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + 1][column + 1].resetColorButton(true);
                                 buttonsMatrix[line + 1][column + 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line + 1][column + 1]. ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + 1][column + 1]);
                             } 
                         }
                         if (column - 1 >= 0) {
@@ -738,6 +892,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line + 1][column - 1].resetColorButton(true);
                                 buttonsMatrix[line + 1][column - 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line + 1][column - 1].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line + 1][column - 1]);
                             }
                         }
                     }
@@ -748,6 +903,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line - 1][column].resetColorButton(true);
                             buttonsMatrix[line - 1][column].setBackground(RED_COLOR);
                             buttonsMatrix[line - 1][column].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 1][column]);
                         }
 
                         if (column + 1 <= 7) {
@@ -756,6 +912,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - 1][column + 1].resetColorButton(true);
                                 buttonsMatrix[line - 1][column + 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line - 1][column + 1].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 1][column + 1]);
                             }
                         }
                         if (column - 1 >= 0) {
@@ -764,6 +921,7 @@ public class SuperButton extends JButton implements ActionListener{
                                 buttonsMatrix[line - 1][column - 1].resetColorButton(true);
                                 buttonsMatrix[line - 1][column - 1].setBackground(RED_COLOR);
                                 buttonsMatrix[line - 1][column - 1].ableMove = true;
+                                SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line - 1][column - 1]);
                             }
                         }
                     }
@@ -774,6 +932,7 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line][column + 1].resetColorButton(true);
                             buttonsMatrix[line][column + 1].setBackground(RED_COLOR);
                             buttonsMatrix[line][column + 1].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][column + 1]);
                         }
                     }
                     if (column - 1 >= 0) {
@@ -782,8 +941,102 @@ public class SuperButton extends JButton implements ActionListener{
                             buttonsMatrix[line][column - 1].resetColorButton(true);
                             buttonsMatrix[line][column - 1].setBackground(RED_COLOR);
                             buttonsMatrix[line][column - 1].ableMove = true;
+                            SuperButton.verifyRook(piece.isWhite, buttonsMatrix[line][column - 1]);
                         }
                     }
+
+                    boolean isTower = false;
+                    
+                    if (Math.abs((screenSize.width - (int)(0.9 * screenSize.height))/2 + (int)((int)(0.9 * screenSize.height)/2) - piece.initialWidthPosition) <= ERROR_MARGIN && 
+                        Math.abs((screenSize.height - (int)(0.9 * screenSize.height))/2 + 7 * (int)((int)(0.9 * screenSize.height)/8) - piece.initialHeightPosition) <= ERROR_MARGIN &&
+                        piece.isWhite && whiteCanRook) {
+
+                        if (!verifyPiece(buttonsMatrix[line][column + 1], true) && !verifyPiece(buttonsMatrix[line][column + 1], false) && !verifyPiece(buttonsMatrix[line][column + 2], true) && !verifyPiece(buttonsMatrix[line][column + 2], false)  
+                            && verifyPiece(buttonsMatrix[line][column + 3], piece.isWhite)) {
+                            
+                            for (int i = 0; i < whitePieces.size(); i++) {
+                                if (Math.abs(buttonsMatrix[line][column + 3].positionButtonWidth - whitePieces.get(i).initialWidthPosition) <= ERROR_MARGIN &&
+                                    Math.abs(buttonsMatrix[line][column + 3].positionButtonHeight - whitePieces.get(i).initialHeightPosition) <= ERROR_MARGIN &&
+                                    whitePieces.get(i) instanceof Tower) {
+                                    
+                                    towerRook = (Tower)whitePieces.get(i);
+                                    isTower = true;
+                                    break;
+                                }
+                            }
+                            if (isTower) {
+                                
+                                buttonsMatrix[line][column + 3].resetColorButton(true);
+                                buttonsMatrix[line][column + 3].setBackground(RED_COLOR);
+                                buttonsMatrix[line][column + 3].ableMove = true;
+                            }
+                        }
+                        if (!verifyPiece(buttonsMatrix[line][column - 1], true) && !verifyPiece(buttonsMatrix[line][column - 1], false) && !verifyPiece(buttonsMatrix[line][column - 2], true) && !verifyPiece(buttonsMatrix[line][column - 2], false)  
+                            && !verifyPiece(buttonsMatrix[line][column - 3], true) && !verifyPiece(buttonsMatrix[line][column - 3], false) && verifyPiece(buttonsMatrix[line][column - 4], piece.isWhite)) {
+                            
+                            for (int i = 0; i < whitePieces.size(); i++) {
+                                if (Math.abs(buttonsMatrix[line][column - 4].positionButtonWidth - whitePieces.get(i).initialWidthPosition) <= ERROR_MARGIN &&
+                                    Math.abs(buttonsMatrix[line][column - 4].positionButtonHeight - whitePieces.get(i).initialHeightPosition) <= ERROR_MARGIN &&
+                                    whitePieces.get(i) instanceof Tower) {
+
+                                    towerRook = (Tower)whitePieces.get(i);
+                                    isTower = true;
+                                    break;
+                                }
+                            }
+                            if (isTower) {
+                                
+                                buttonsMatrix[line][column - 4].resetColorButton(true);
+                                buttonsMatrix[line][column - 4].setBackground(RED_COLOR);
+                                buttonsMatrix[line][column - 4].ableMove = true;
+                            }
+                        }
+                    }
+                    else if (Math.abs((screenSize.width - (int)(0.9 * screenSize.height))/2 + 3 * (int)((int)(0.9 * screenSize.height)/8) - piece.initialWidthPosition) <= ERROR_MARGIN && 
+                        Math.abs((screenSize.height - (int)(0.9 * screenSize.height))/2 + 7 * (int)((int)(0.9 * screenSize.height)/8) - piece.initialHeightPosition) <= ERROR_MARGIN &&
+                        !piece.isWhite && blackCanRook) {
+                       
+                        if (!verifyPiece(buttonsMatrix[line][column - 1], true) && !verifyPiece(buttonsMatrix[line][column - 1], false) && !verifyPiece(buttonsMatrix[line][column - 2], true) && !verifyPiece(buttonsMatrix[line][column - 2], false)  
+                            && verifyPiece(buttonsMatrix[line][column - 3], piece.isWhite)) {
+                            
+                            for (int i = 0; i < blackPieces.size(); i++) {
+                                if (Math.abs(buttonsMatrix[line][column - 3].positionButtonWidth - blackPieces.get(i).initialWidthPosition) <= ERROR_MARGIN &&
+                                    Math.abs(buttonsMatrix[line][column - 3].positionButtonHeight - blackPieces.get(i).initialHeightPosition) <= ERROR_MARGIN &&
+                                    blackPieces.get(i) instanceof Tower) {
+
+                                    towerRook = (Tower)blackPieces.get(i);
+                                    isTower = true;
+                                    break;
+                                }
+                            }
+                            if (isTower) {
+                                
+                                buttonsMatrix[line][column - 3].resetColorButton(true);
+                                buttonsMatrix[line][column - 3].setBackground(RED_COLOR);
+                                buttonsMatrix[line][column - 3].ableMove = true;
+                            }
+                        }
+                        if (!verifyPiece(buttonsMatrix[line][column + 1], true) && !verifyPiece(buttonsMatrix[line][column + 1], false) && !verifyPiece(buttonsMatrix[line][column + 2], true) && !verifyPiece(buttonsMatrix[line][column + 2], false)  
+                            && !verifyPiece(buttonsMatrix[line][column + 3], true) && !verifyPiece(buttonsMatrix[line][column + 3], false) && verifyPiece(buttonsMatrix[line][column + 4], piece.isWhite)) {
+                            
+                            for (int i = 0; i < blackPieces.size(); i++) {
+                                if (Math.abs(buttonsMatrix[line][column + 4].positionButtonWidth - blackPieces.get(i).initialWidthPosition) <= ERROR_MARGIN &&
+                                    Math.abs(buttonsMatrix[line][column + 4].positionButtonHeight - blackPieces.get(i).initialHeightPosition) <= ERROR_MARGIN &&
+                                    blackPieces.get(i) instanceof Tower) {
+
+                                    towerRook = (Tower)blackPieces.get(i);
+                                    isTower = true;
+                                    break;
+                                }
+                            }
+                            if (isTower) {
+                                
+                                buttonsMatrix[line][column + 4].resetColorButton(true);
+                                buttonsMatrix[line][column + 4].setBackground(RED_COLOR);
+                                buttonsMatrix[line][column + 4].ableMove = true;
+                            }
+                        }
+                    }  
                     disableButtons();
                 }
             }
@@ -903,4 +1156,40 @@ public class SuperButton extends JButton implements ActionListener{
         return hasKing;
     }
 
+    public static void verifyRook(boolean rookWhite, SuperButton button) {
+
+        if (whiteCanRook || blackCanRook) {
+            if (!rookWhite) {
+
+                King whiteKing = null;
+                for (Pieces king : whitePieces) {
+                    if (king instanceof King) {
+                        whiteKing = (King)king;
+                        break;
+                    }
+                }
+                if (Math.abs(button.positionButtonWidth - whiteKing.initialWidthPosition) <= ERROR_MARGIN && 
+                    Math.abs(button.positionButtonHeight - whiteKing.initialHeightPosition) <= ERROR_MARGIN) {
+                    
+                    whiteCanRook = false;
+                }
+            }
+            else {
+
+                King blackKing = null;
+                for (Pieces king : blackPieces) {
+                    if (king instanceof King) {
+                        blackKing = (King)king;
+                        break;
+                    }
+                }
+                if (Math.abs(button.positionButtonWidth - blackKing.initialWidthPosition) <= ERROR_MARGIN && 
+                    Math.abs(button.positionButtonHeight - blackKing.initialHeightPosition) <= ERROR_MARGIN) {
+                    
+                    blackCanRook = false;
+                }
+            }
+        }
+
+    }
 }

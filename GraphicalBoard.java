@@ -147,7 +147,7 @@ public class GraphicalBoard extends JFrame{
     public SuperButton button8x8 = new SuperButton(INITIAL_PIECE_WIDTH + 7 * GRID_SIZE, INITIAL_PIECE_HEIGHT + 7 * GRID_SIZE);
 
     // The matriz of all the buttons of the Window;
-    private SuperButton[][] buttonsMatrix = {{button1x1,button1x2,button1x3,button1x4,button1x5,button1x6,button1x7,button1x8},
+    public SuperButton[][] buttonsMatrix = {{button1x1,button1x2,button1x3,button1x4,button1x5,button1x6,button1x7,button1x8},
                                             {button2x1,button2x2,button2x3,button2x4,button2x5,button2x6,button2x7,button2x8},
                                             {button3x1,button3x2,button3x3,button3x4,button3x5,button3x6,button3x7,button3x8},
                                             {button4x1,button4x2,button4x3,button4x4,button4x5,button4x6,button4x7,button4x8},
@@ -155,6 +155,9 @@ public class GraphicalBoard extends JFrame{
                                             {button6x1,button6x2,button6x3,button6x4,button6x5,button6x6,button6x7,button6x8},
                                             {button7x1,button7x2,button7x3,button7x4,button7x5,button7x6,button7x7,button7x8},
                                             {button8x1,button8x2,button8x3,button8x4,button8x5,button8x6,button8x7,button8x8}};
+
+    ArrayList<Pieces> blackPieces = new ArrayList<Pieces>(Arrays.asList(blackPiecesArray));
+    ArrayList<Pieces> whitePieces = new ArrayList<Pieces>(Arrays.asList(whitePiecesArray));
 
     // The method to create the board;
     public void openBoard() throws Exception{
@@ -179,8 +182,6 @@ public class GraphicalBoard extends JFrame{
         }
 
         // Transforming the arrays in lists and setting with the buttons matrix;
-        ArrayList<Pieces> blackPieces = new ArrayList<Pieces>(Arrays.asList(blackPiecesArray));
-        ArrayList<Pieces> whitePieces = new ArrayList<Pieces>(Arrays.asList(whitePiecesArray));
         SuperButton.setButtonsPiecesMatrix(buttonsMatrix, whitePieces, blackPieces);
 
         // Putting a new background to the Window;
