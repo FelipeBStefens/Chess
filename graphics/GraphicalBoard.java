@@ -1,7 +1,5 @@
-package Chess.graphics;
-
-import Chess.pieces.*;
-
+package graphics;
+import pieces.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;

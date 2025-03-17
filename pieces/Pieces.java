@@ -1,5 +1,4 @@
-package Chess.pieces;
-
+package pieces;
 import java.awt.*;
 
 public abstract class Pieces {

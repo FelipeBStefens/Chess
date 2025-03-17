@@ -1,7 +1,5 @@
-package Chess.graphics;
-
-import Chess.pieces.*;
-
+package graphics;
+import pieces.*;
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;

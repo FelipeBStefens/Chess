@@ -1,6 +1,4 @@
-package Chess;
-
-import Chess.graphics.InitialFrame;
+import graphics.InitialFrame;
 
 public class Main {
 
